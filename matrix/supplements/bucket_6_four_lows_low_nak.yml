@@ -41,6 +41,27 @@ products:
     role: methylation
     dose_modifier: standard
     notes: "Universal methylation support — present in all 6 buckets."
+
+  - id: red-pilled-sockeye
+    role: fish_oil_essential_fatty_acids
+    dose_modifier: standard
+    notes: |
+      Fish oil — 0-0-1 (1000 mg/day). Universal across all buckets.
+      Added 2026-09-08.
+  - id: valence-se
+    role: selenium_antioxidant
+    dose_modifier: standard
+    notes: |
+      Selenium — 2-2-2 default (200 mcg AM, 200 mcg noon, 200 mcg PM).
+      Labelled (optional) — practitioner may reduce or skip per patient need.
+      Added 2026-09-08.
+  - id: kidney-flow
+    role: kidney_support
+    dose_modifier: standard
+    notes: |
+      Kidney support — 1-1-1 (1 cap AM, 1 cap NOON, 1 cap PM).
+      Labelled (optional) — practitioner may reduce or skip per patient need.
+      Added 2026-09-08.
 references:
   - "drlwilson.com/articles/FOUR%20LOWS.htm"
   - "drlwilson.com/Articles/DEATH%20PATTERNS.htm (four lows + Na/K < 1 = 'very ill' pattern)"

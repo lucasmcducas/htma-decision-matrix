@@ -55,7 +55,10 @@
               "cell-restore",
               "valence-d3-k2",
               "kelp-max",
-              "nerv-calm"
+              "nerv-calm",
+              "red-pilled-sockeye",
+              "valence-se",
+              "kidney-flow"
             ]
           },
           "role": {"type": "string", "minLength": 1},
