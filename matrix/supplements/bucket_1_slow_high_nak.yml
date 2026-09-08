@@ -74,6 +74,12 @@ products:
       Kidney support — 1-1-1 (1 cap AM, 1 cap NOON, 1 cap PM).
       Labelled (optional) — practitioner may reduce or skip per patient need.
       Added 2026-09-08.
+  - id: kelp-max
+    role: thyroid_iodine
+    dose_modifier: standard
+    notes: |
+      Iodine/trace-mineral nourishment from kelp. Universal across all 6 buckets —
+      slow/four-lows buckets get 2-2-2, fast-oxidation buckets get 1-1-0 (per Luke 2026-09-08).
 references:
   - "drlwilson.com/articles/OXID.SLOW..htm"
   - "drlwilson.com/articles/Oxidation%20Types%201104.htm"
