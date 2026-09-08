@@ -36,7 +36,7 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "role", "dose_modifier"],
+        "required": ["id", "role"],
         "additionalProperties": true,
         "properties": {
           "id": {
@@ -63,6 +63,48 @@
             "type": "string",
             "enum": ["standard", "lower", "higher", "avoid"]
           },
+          "dose_schedule": {
+            "type": "object",
+            "required": ["type", "metric", "anchors"],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["linear"]
+              },
+              "metric": {
+                "type": "string",
+                "enum": ["na_k"]
+              },
+              "anchors": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "object",
+                  "required": ["na_k_max", "dose"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "na_k_max": {
+                      "oneOf": [
+                        {"type": "number", "exclusiveMinimum": 0},
+                        {"type": "null"}
+                      ]
+                    },
+                    "dose": {
+                      "type": "object",
+                      "required": ["am", "noon", "pm"],
+                      "additionalProperties": false,
+                      "properties": {
+                        "am": {"type": "string"},
+                        "noon": {"type": "string"},
+                        "pm": {"type": "string"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "notes": {"type": "string"},
           "conditional": {
             "type": "object",
@@ -73,7 +115,11 @@
               "na_k_min": {"type": "number"}
             }
           }
-        }
+        },
+        "anyOf": [
+          {"required": ["dose_modifier"]},
+          {"required": ["dose_schedule"]}
+        ]
       }
     },
     "references": {

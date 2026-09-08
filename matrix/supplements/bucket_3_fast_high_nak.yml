@@ -22,9 +22,19 @@ products:
       magnesium slow the oxidation rate.
   - id: zinc-matrix-pro
     role: zinc
-    dose_modifier: standard
+    dose_schedule:
+      type: linear
+      metric: na_k
+      anchors:
+        - { na_k_max: 2.5, dose: { am: "0",      noon: "0",     pm: "1 cap" } }
+        - { na_k_max: 4.0, dose: { am: "0",      noon: "0",     pm: "1 cap" } }
+        - { na_k_max: 6.0, dose: { am: "0",      noon: "1 cap", pm: "1 cap" } }
+        - { na_k_max: 8.0, dose: { am: "1 cap",  noon: "1 cap", pm: "1 cap" } }
+        - { na_k_max: null, dose: { am: "1 cap", noon: "1 cap", pm: "2 caps" } }
     notes: |
-      Zinc is indicated because Na/K is adequate. Replaced by Na/K Up in every low-Na/K
+      Zinc dose scales linearly with Na/K ratio per locked rule (added 2026-09-08).
+      At Na/K=2.5: 0-0-1. At Na/K=8.0+: 1-1-2 ceiling.
+      Replaces previous flat "standard" dose. Replaced by Na/K Up in every low-Na/K
       bucket — never both.
   - id: nerv-calm
     role: nervous_system_calming

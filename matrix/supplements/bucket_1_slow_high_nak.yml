@@ -26,9 +26,19 @@ products:
     notes: "Bioavailable Ca/Mg — the slow-oxidizer backbone."
   - id: zinc-matrix-pro
     role: zinc
-    dose_modifier: standard
+    dose_schedule:
+      type: linear
+      metric: na_k
+      anchors:
+        - { na_k_max: 2.5, dose: { am: "0",      noon: "0",     pm: "1 cap" } }
+        - { na_k_max: 4.0, dose: { am: "0",      noon: "0",     pm: "1 cap" } }
+        - { na_k_max: 6.0, dose: { am: "0",      noon: "1 cap", pm: "1 cap" } }
+        - { na_k_max: 8.0, dose: { am: "1 cap",  noon: "1 cap", pm: "1 cap" } }
+        - { na_k_max: null, dose: { am: "1 cap", noon: "1 cap", pm: "2 caps" } }
     notes: |
-      Zinc is indicated because Na/K is adequate. In every low-Na/K bucket this slot is
+      Zinc dose scales linearly with Na/K ratio per locked rule (added 2026-09-08).
+      At Na/K=2.5: 0-0-1 (1 cap at PM). At Na/K=8.0+: 1-1-2 ceiling.
+      Replaces previous flat "standard" dose. In every low-Na/K bucket this slot is
       replaced by Na/K Up — never supplement both.
   - id: valence-d3-k2
     role: vitamin_d3_k2

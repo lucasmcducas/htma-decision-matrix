@@ -20,10 +20,20 @@ products:
     notes: "High calming Ca/Mg to slow the oxidation rate."
   - id: na-k-up
     role: sodium_potassium_support
-    dose_modifier: standard
+    dose_schedule:
+      type: linear
+      metric: na_k
+      anchors:
+        - { na_k_max: 1.0, dose: { am: "2 caps", noon: "2 caps", pm: "2 caps" } }
+        - { na_k_max: 1.5, dose: { am: "2 caps", noon: "1 cap",  pm: "2 caps" } }
+        - { na_k_max: 2.0, dose: { am: "1 cap",  noon: "0",      pm: "0" } }
+        - { na_k_max: null, dose: { am: "0",    noon: "0",      pm: "0" } }
     notes: |
-      The Valence equivalent of LimComin. Replaces Zinc Matrix Pro in every low-Na/K
-      bucket — never supplement zinc and Na/K Up together.
+      Na/K Up dose scales linearly with Na/K ratio per locked rule (added 2026-09-08).
+      At Na/K<=1.0: 2-2-2 ceiling. At Na/K=2.0: 1-0-0 lighter end. Above Na/K=2.0,
+      Na/K Up is not indicated (Zinc Matrix Pro takes over in the high-Na/K buckets).
+      Replaces previous flat "standard" dose. The Valence equivalent of LimComin.
+      SUBSTITUTES for Zinc Matrix Pro — never both in the same protocol.
   - id: cell-restore
     role: methylation
     dose_modifier: standard
