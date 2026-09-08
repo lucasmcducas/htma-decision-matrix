@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 .DS_Store
 *.swp
+htma_decision_matrix.egg-info/

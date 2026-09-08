@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "htma-decision-matrix"
+version = "0.1.0"
+description = "HTMA interpretation + supplement decision matrix (Wilson framework + Valence catalog)"
+requires-python = ">=3.10"
+dependencies = ["pyyaml>=6.0", "jsonschema>=4.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["htma_decision_matrix*"]
