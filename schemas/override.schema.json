@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://htma-decision-matrix.local/schemas/override.schema.json",
+  "title": "HTMA Supplement Override",
+  "description": "Validates the Sympathetic Dominance override file (the ONE supplement-level override in the matrix).",
+  "type": "object",
+  "required": ["override_id", "applies_to_bucket", "detection", "overrides", "references"],
+  "additionalProperties": true,
+  "properties": {
+    "override_id": {
+      "type": "string",
+      "enum": ["sympathetic_dominance"]
+    },
+    "applies_to_bucket": {
+      "type": "string",
+      "enum": [
+        "slow_high_nak",
+        "slow_low_nak",
+        "fast_high_nak",
+        "fast_low_nak",
+        "four_lows_high_nak",
+        "four_lows_low_nak"
+      ]
+    },
+    "description": {"type": "string"},
+    "detection": {
+      "type": "object",
+      "required": ["requires"],
+      "additionalProperties": true,
+      "properties": {
+        "requires": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "oxidation": {"type": "string", "enum": ["slow", "fast", "mixed", "four_lows"]},
+            "na_k_band": {"type": "string", "enum": ["above_2.5", "below_2.5"]},
+            "k_max": {"type": "number"},
+            "k_ppm_max": {"type": "number"},
+            "na_k_min": {"type": "number"},
+            "na_k_max": {"type": "number"}
+          }
+        },
+        "notes": {"type": "string"}
+      }
+    },
+    "overrides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["replace", "with", "note"],
+        "additionalProperties": true,
+        "properties": {
+          "replace": {"type": "string"},
+          "with": {"type": "string"},
+          "dose_modifier": {"type": "string", "enum": ["standard", "lower", "higher", "avoid"]},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}

@@ -1,0 +1,46 @@
+pattern_id: spiritual_defensiveness
+display_name: "Spiritual Defensiveness (Ca/Mg > 13.5)"
+affects: annotation_only
+description: |
+  Ca/Mg above 13.5 — Wilson's signal that something in the client's lifestyle, attitude
+  or emotional posture is obstructing recovery. Most common on an initial test. Wilson
+  quantifies the severity (1x through 5x) by the Ca/Mg magnitude. The Dart engine uses
+  the same threshold (Ca/Mg > 13.5) under the name "Lifestyle Stress Pattern."
+  Annotation only — supplements continue to follow the bucket.
+classifier:
+  input:
+    - ca_mg_ratio
+    - test_type
+  rules:
+    - id: spiritual_defensiveness
+      when:
+        ca_mg_ratio: {gt: 13.5}
+      severity:
+        mild: {ca_mg_ratio: [13.5, 21.0]}
+        moderate: {ca_mg_ratio: [21.0, 32.0]}
+        severe: {ca_mg_ratio: [32.0, null]}
+      severity_note: |
+        Wilson's tiers: 1x 13.5-21 (single), 2x 21-32 (double), 3x 32-55 (triple),
+        4x 55-75 (quadruple), 5x > 75 (quintuple, often severe parental trauma).
+chart_annotations:
+  spiritual_defensiveness: |
+    Spiritual defensiveness — Ca/Mg of {ca_mg} is above 13.5 on an {test_type} test.
+    Wilson: there is something in the client's lifestyle, relationship, habit or attitude
+    obstructing recovery. Often father-trauma. Examine what is being defended and release
+    it. Annotation only.
+sub_patterns:
+  - id: stress_from_within_and_without
+    when: {ca_mg_ratio: {gt: 13.5}, na_k_ratio: {gt: 5}}
+    note: "Spiritual defensiveness + high Na/K. Annotation only."
+  - id: father_trauma_tendency
+    when: {ca_mg_ratio: {gt: 13.5}, test_type: initial}
+    note: "Wilson's most common read of the > 13.5 signal on a first test."
+  - id: carbohydrate_tolerance_exceeded
+    when: {ca_mg_ratio: [9.5, 13.5]}
+    note: |
+      Ca/Mg 9.5-13.5 is the "exceeding carbohydrate tolerance" sub-band — a milder version
+      that Wilson treats as precursor territory.
+references:
+  - "drlwilson.com/articles/QUANTIFY%20PATTERNS.htm"
+  - "drlwilson.com/articles/INNER%20OUTER.htm (lifestyle / father-trauma reads)"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart (Lifestyle Stress Pattern)"

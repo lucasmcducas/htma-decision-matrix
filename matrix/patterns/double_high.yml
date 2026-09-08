@@ -1,0 +1,54 @@
+pattern_id: double_high
+display_name: "Double High Ratio Pattern"
+affects: annotation_only
+description: |
+  Both first-tetra ratios high — Ca/Mg > 9.5 AND Na/K > ~5 (Double Patterns) or > 6
+  (Double High Ratio article). Wilson treats it as an inflammation and anger marker with
+  an "intense need for zinc supplementation" — a concept note only. The supplement list
+  already includes zinc in every high-Na/K bucket, and the contradiction flag C4 is
+  annotation only (locked rule 6).
+classifier:
+  input:
+    - na_k_ratio
+    - ca_mg_ratio
+    - zn_ppm
+  rules:
+    - id: double_high_ratio
+      when:
+        na_k_ratio: {gt: 5.0}
+        ca_mg_ratio: {gt: 9.5}
+      note: |
+        The site has two published thresholds: Na/K > 5 (Double Patterns) and Na/K > 6
+        (Double High Ratio standalone). The lower threshold (5.0) is the conservative
+        annotation trigger; see docs/decisions/0003-double-high-threshold.md.
+      severity:
+        mild: {na_k_ratio: [5.0, 8.0]}
+        moderate: {na_k_ratio: [8.0, 20.0]}
+        severe: {na_k_ratio: [20.0, null]}
+sub_patterns:
+  - id: step_down
+    when: {four_lows: true, oxidation: slow, first_tetra_step_down_visual: true}
+    note: |
+      Mirror of Step Up. Four lows with a step-down visual indicates a "desire to move
+      on from this life" (death-wish). Annotation only.
+  - id: hard_worker_hard_driver
+    when: {three_or_four_highs: true, double_high_ratio: true}
+    note: "Annotation only."
+  - id: trying_hard_to_stay_afloat
+    when: {sympathetic_dominance: true, double_high_ratio: true, highs_count: [2, 3]}
+    note: |
+      SD + double high ratio + 2-or-3 highs (not four highs). Annotation only.
+chart_annotations:
+  double_high_ratio: |
+    Double high ratio — Na/K {na_k} is above ~5 with Ca/Mg of {ca_mg} (above ~9.5).
+    Wilson's major inflammation indicator; anger and acute stress present. Concept note:
+    "always an intense need for zinc" — zinc is already in the bucket's product list.
+  step_down: |
+    "Step Down" pattern — four lows with the macrominerals stepping down to the right.
+    Wilson's "desire to move on from this life" cluster. Annotation only.
+references:
+  - "drlwilson.com/Articles/DOUBLE%20HIGH%20RATIO.htm"
+  - "drlwilson.com/articles/DOUBLE%20PATTERNS.htm"
+  - "drlwilson.com/articles/STEP%20UP-DOWN.HTM"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart"
+  - "~/.hermes/plans/2026-09-08_133000-synthesis-for-luke.md (contradiction flag C4)"

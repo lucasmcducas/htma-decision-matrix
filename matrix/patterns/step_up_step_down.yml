@@ -1,0 +1,79 @@
+pattern_id: step_up_step_down
+display_name: "Step Up / Step Down"
+affects: annotation_only
+description: |
+  Visual patterns formed by the first four macrominerals stepping up (Step Up) or stepping
+  down (Step Down) across the chart. Both are death-pattern clusters in Wilson's framework.
+  Step Up = fast oxidation + double low ratio + step-up visual, no four lows — the "fast
+  death pattern." Step Down = four lows with a step-down visual — the "desire to move on
+  from this life" pattern. Annotation only. Wilson's Step Up copper protocol is recorded
+  as contradiction flag C2 but does NOT change the product list (locked rule 6).
+classifier:
+  input:
+    - ca_ppm
+    - mg_ppm
+    - na_ppm
+    - k_ppm
+    - na_k_ratio
+    - ca_mg_ratio
+    - oxidation
+    - first_tetra_visual
+  rules:
+    - id: step_up
+      when:
+        oxidation: fast
+        double_low_ratio: true
+        first_tetra_visual: steps_up
+        four_lows: false
+      severity:
+        mild: {}
+        moderate: {}
+        severe: {}
+      severity_note: |
+        Wilson publishes no formal severity tiers for Step Up. The clinical risk rises with
+        the steepness of the steps.
+    - id: step_up_with_four_lows
+      when:
+        step_up_visual: true
+        four_lows: true
+      note: |
+        A "positive" Step Up variant — Wilson reads this as "trying to stay in this life."
+        Annotation only.
+    - id: step_down
+      when:
+        four_lows: true
+        first_tetra_visual: steps_down
+        oxidation: slow
+      severity:
+        mild: {}
+        moderate: {}
+        severe: {}
+      severity_note: |
+        Wilson publishes no formal severity tiers for Step Down. The clinical risk rises
+        with the steepness of the step-down and the depth of the four lows.
+sub_patterns:
+  - id: second_tetra_step_up
+    when: {second_tetra_visual: steps_up}
+    note: "Can occur on the second four minerals. Annotation only."
+  - id: "i_d_rather_die"
+    when: {step_up: true}
+    note: "Wilson's psychological cluster for the Step Up pattern."
+  - id: "beam_me_up_scottie"
+    note: "Excess-fruit sub-type. Annotation only."
+chart_annotations:
+  step_up: |
+    Step Up pattern — fast oxidation with a double low ratio and the first four
+    macrominerals rising like steps to the right. Wilson's "fast death pattern": tendency
+    for heart attack, stroke, arteriosclerosis, malignancy, diabetes. Practitioner
+    guidance: very high need for copper chelate. Annotation only — supplements continue
+    to follow the bucket.
+  step_up_with_four_lows: |
+    Step Up with Four Lows — a "trying to stay in this life" variant. Annotation only.
+  step_down: |
+    Step Down pattern — four lows with the macrominerals stepping down to the right.
+    Wilson's "desire to move on from this life" pattern; severity rises with the
+    steepness. Annotation only.
+references:
+  - "drlwilson.com/articles/STEP%20UP-DOWN.HTM"
+  - "drlwilson.com/Articles/DEATH%20PATTERNS.htm"
+  - "~/.hermes/plans/2026-09-08_133000-synthesis-for-luke.md (contradiction flag C2)"

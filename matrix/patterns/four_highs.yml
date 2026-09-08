@@ -1,0 +1,87 @@
+pattern_id: four_highs
+display_name: "Four Highs"
+affects: annotation_only
+description: |
+  All four macrominerals above their ideals on a single test — Wilson's "secondary alarm
+  reaction": an underlying slow oxidation with a superimposed alarm response. Independent
+  of the oxidation rate (can occur fast, slow or mixed) and usually resolves to slow
+  oxidation within 4-12 months. The crash-landing protocol Wilson describes is a transient
+  practitioner intervention; per locked rule 6 it is an ANNOTATION ONLY here and never
+  changes the bucket's product list.
+classifier:
+  input:
+    - ca_ppm
+    - mg_ppm
+    - na_ppm
+    - k_ppm
+    - na_k_ratio
+    - ca_mg_ratio
+  rules:
+    - id: four_highs
+      when:
+        ca_ppm: {gt: 40}
+        mg_ppm: {gt: 6}
+        na_ppm: {gt: 25}
+        k_ppm: {gt: 10}
+      note: |
+        Wilson uses no ranges for the four macrominerals — any value above ideal counts as
+        elevated for this pattern.
+      severity:
+        mild: {ca_ppm: [40, 165]}
+        moderate: {ca_ppm: [165, 320]}
+        severe: {ca_ppm: [320, null]}
+    - id: high_tunnel
+      when:
+        ca_ppm: {gte: 320}
+        mg_ppm: {gte: 30}
+        na_ppm: {gte: 125}
+        k_ppm: {gte: 50}
+      note: |
+        The "high tunnel" variant — a mild mirror of four lows and an intervention pattern.
+    - id: three_highs
+      when:
+        highs_count: 3
+      note: "Three of the four macrominerals elevated. See also the 'wrong two highs' variant."
+sub_patterns:
+  - id: yang_rising
+    when: {na_k_ratio: {gt: 2.5}}
+    note: "Acupuncture correlate of four highs with adequate Na/K."
+  - id: passive_aggressive
+    when: {calcium_shell: true}
+    note: "Four (or three) highs + calcium shell. Accentuated when Na/K < ~2.5."
+  - id: hard_worker_hard_driver
+    when: {ca_mg_ratio: {gt: 9.5}, na_k_ratio: {gt: 5}}
+    note: "Four highs + double high ratio."
+  - id: delicate_souls
+    note: |
+      Wilson's descriptive sub-type: bright, often middle-aged women who unconsciously
+      hold themselves in the pattern with caffeine, exercise and anger.
+  - id: stilted
+    note: "Psychological sub-type named in the Four Highs article."
+crash_landing_protocol:
+  status: annotation_only
+  locked_rule: 6
+  wilson_advice:
+    - "Stop SBF or Stress Pak (EndoMet formulas) — they slow the oxidation rate further."
+    - "Switch to the slow-oxidizer diet if previously on the fast-oxidizer diet."
+    - "Possibly add MegaPan or B-complex to bring the oxidation rate back up."
+  note: |
+    Recorded for the practitioner narrative only. The supplement list continues to follow
+    the client's actual bucket, which may itself flip as the pattern resolves.
+chart_annotations:
+  four_highs: |
+    Four highs — Ca {ca}, Mg {mg}, Na {na} and K {k} mg% are all above ideal. Wilson's
+    secondary alarm reaction: an underlying slow oxidation with a superimposed alarm
+    response. Usually resolves to slow oxidation within 4-12 months. Warn the client about
+    a possible "crash landing" into very slow oxidation as it resolves.
+  high_tunnel: |
+    "High tunnel" variant of four highs (Ca >= 320, Mg >= 30, Na >= 125, K >= 50 mg%) — a
+    mild mirror of the four lows pattern and an intervention pattern.
+  three_highs: |
+    Three highs — three of the four macrominerals elevated. A partial four-highs pattern;
+    read alongside the oxidation rate.
+references:
+  - "drlwilson.com/articles/four%20high%20electrolytes.htm"
+  - "drlwilson.com/ARTICLES/WRONG%20TWO%20HIGHS.htm"
+  - "drlwilson.com/ARTICLES/THREE%20LOWS.HTM"
+  - "~/.hermes/plans/2026-09-08_133000-synthesis-for-luke.md (contradiction flag C3)"

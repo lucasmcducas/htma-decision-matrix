@@ -1,0 +1,39 @@
+pattern_id: burned_out
+display_name: "Burned Out (fast + low Na/K)"
+affects: annotation_only
+description: |
+  Fast oxidizer with Na/K below 2.5 — Wilson notes that this combination behaves clinically
+  more like a slow oxidizer than a fast one (Oxidation Types). The Dart engine flags it as
+  a "Low Na/K — Low Vitality" sub-pattern. Annotation only — the supplement list is bucket
+  4 (fast + low Na/K) with no override.
+classifier:
+  input:
+    - oxidation
+    - na_k_ratio
+  rules:
+    - id: burned_out_fast
+      when:
+        oxidation: fast
+        na_k_ratio: {lt: 2.5}
+      severity:
+        mild: {na_k_ratio: [2.0, 2.5]}
+        moderate: {na_k_ratio: [1.0, 2.0]}
+        severe: {na_k_ratio: [null, 1.0]}
+      severity_note: |
+        Na/K < 1 is the most serious vitality flag Wilson identifies — the
+        "life-death ratio" with very low cellular electrical potential. Below 0.4 is
+        "I'd rather die" / "Beam Me Up Scottie."
+chart_annotations:
+  burned_out_fast: |
+    Burned-out fast oxidizer — Ca/K {ca_k} and Na/Mg {na_mg} say fast, but Na/K of {na_k}
+    is below 2.5, so the person behaves more like a slow oxidizer. Wilson: rest, slow
+    down, rebuild electrical potential. Avoid adrenal/thyroid glandulars, B-complex,
+    vitamin C and E, and isolated potassium.
+  burned_out_fast_critical: |
+    Critical Na/K inversion — Na/K of {na_k} is below 1. Wilson's "life-death ratio"
+    indicating very low cellular electrical potential. Practitioner attention is
+    warranted; the bucket 4 program is the correct starting point.
+references:
+  - "drlwilson.com/articles/Oxidation%20Types%201104.htm"
+  - "drlwilson.com/articles/LOW%20SODIUM%20POTASSIUM%20RATIO.htm"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart (Low Na/K sub-pattern)"

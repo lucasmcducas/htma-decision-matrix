@@ -1,0 +1,77 @@
+pattern_id: double_low
+display_name: "Double Low Ratio Pattern"
+affects: annotation_only
+description: |
+  Both first-tetra ratios low — Na/K < 2.5 AND Ca/Mg < ~5. Wilson's "double give-up" or
+  "double inversion" pattern: a slow death pattern associated with chronic stress,
+  catabolism, infection, kidney or liver strain, and malignancy tendency. Annotation only.
+  The Step Up sub-pattern's copper protocol is recorded as a contradiction flag (C2) but
+  does NOT change the supplement list (locked rule 6).
+classifier:
+  input:
+    - na_k_ratio
+    - ca_mg_ratio
+    - oxidation
+    - fe_cu_ratio
+    - mn_zn_ratio
+  rules:
+    - id: double_low_ratio
+      when:
+        na_k_ratio: {lt: 2.5}
+        ca_mg_ratio: {lt: 5.0}
+      note: |
+        Some sources state Ca/Mg < 4 for the Step Up variant and Ca/Mg < 5 for the
+        standard double low. The < 5 threshold is the conservative universal cutoff; the
+        stricter < 4 only applies inside Step Up.
+      severity:
+        mild: {ca_mg_ratio: [3.5, 5.0]}
+        moderate: {ca_mg_ratio: [3.0, 3.5]}
+        severe: {ca_mg_ratio: [null, 3.0]}
+    - id: double_double_low_ratio
+      when:
+        na_k_ratio: {lt: 2.5}
+        ca_mg_ratio: {lt: 4.0}
+        fe_cu_ratio: {lt: 0.58}
+        mn_zn_ratio: {lt: 0.0015}
+      note: "Double low on BOTH first and second tetras. Even more severe slow-death pattern."
+    - id: triple_double_low
+      when:
+        first_tetra_double_low: true
+        second_tetra_double_low: true
+        cr_se_ratio: {lt: 0.7}
+      note: "Research-level pattern (third tetra). Annotation only."
+sub_patterns:
+  - id: victim
+    when: {oxidation: slow, na_k_ratio: {lt: 2.5}}
+    note: "Any slow oxidation with low Na/K is a victim pattern."
+  - id: step_up
+    when: {oxidation: fast, double_low_ratio: true, four_lows: false, first_tetra_step_visual: true}
+    note: |
+      Fast oxidation + double low ratio + step-up visual + NO four lows. "Fast death
+      pattern." Copper protocol recorded as contradiction flag C2; ANNOTATION ONLY.
+  - id: grief
+    when: {four_highs: true, double_low_ratio: true}
+    note: "Four highs + double low on the first four. Annotation only."
+  - id: double_double_low_ratio
+    when: {double_double_low_ratio: true}
+chart_annotations:
+  double_low_ratio: |
+    Double low ratio — Na/K {na_k} is below 2.5 with Ca/Mg of {ca_mg} (below ~5). Wilson's
+    "double inversion" / "double give-up" pattern: chronic stress, catabolism, kidney or
+    liver strain, malignancy tendency. Continue the bucket program and emphasize rest,
+    bioavailable minerals, gentle rebuilding.
+  step_up: |
+    "Step Up" pattern — fast oxidation with a double low ratio and the first four
+    macrominerals rising like steps to the right (no four lows). Wilson's "fast death
+    pattern" / "I'd rather die" cluster. Practitioner note: very high need for copper
+    chelate. Annotation only — supplements continue to follow the bucket.
+  double_double_low_ratio: |
+    Double-double low ratio — first tetra low AND second tetra low (Fe/Cu < 0.58,
+    Mn/Zn < 0.0015). Even more severe slow-death pattern. Annotation only.
+references:
+  - "drlwilson.com/articles/DOUBLE%20LOW%20RATIO.htm"
+  - "drlwilson.com/articles/DOUBLE%20PATTERNS.htm"
+  - "drlwilson.com/articles/STEP%20UP-DOWN.HTM"
+  - "drlwilson.com/Articles/DEATH%20PATTERNS.htm"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart"
+  - "~/.hermes/plans/2026-09-08_133000-synthesis-for-luke.md (contradiction flag C2)"

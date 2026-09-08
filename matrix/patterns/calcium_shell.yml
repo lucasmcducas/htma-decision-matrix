@@ -1,0 +1,90 @@
+pattern_id: calcium_shell
+display_name: "Calcium Shell"
+affects: annotation_only
+description: |
+  A protective "shell" of biounavailable calcium. Wilson refined Eck's original 200 mg%
+  threshold down to 165 mg% for women and 155 mg% for men. Clinically it indicates
+  psychological withdrawal, trauma, overwhelming stress and a very sensitive body; the
+  person is almost always a slow oxidizer. Annotation only — bioavailable Ca/Mg is already
+  in every bucket, and Wilson warns against simply piling on magnesium in response.
+classifier:
+  input:
+    - ca_ppm
+    - sex
+    - ca_mg_ratio
+    - na_k_ratio
+    - mg_ppm
+  rules:
+    - id: calcium_shell_female
+      when:
+        sex: female
+        ca_ppm: {gte: 165}
+      severity:
+        mild: {ca_ppm: [165, 210]}
+        moderate: {ca_ppm: [210, 260]}
+        severe: {ca_ppm: [260, null]}
+      severity_note: |
+        Wilson's multiplier tiers for women: 1x 165-209, 2x 210-259, 3x 260-339,
+        4x 340-369 (also "petrified"), 5x 370-459, 6x 460-539, 7x 540-619, 8x 620+.
+    - id: calcium_shell_male
+      when:
+        sex: male
+        ca_ppm: {gte: 155}
+      severity:
+        mild: {ca_ppm: [155, 200]}
+        moderate: {ca_ppm: [200, 250]}
+        severe: {ca_ppm: [250, null]}
+      severity_note: "Wilson's tiers for men: 1x 155-199, 2x 200-249, 3x 250-309, 4x 310-339."
+    - id: petrified
+      when:
+        sex: female
+        ca_ppm: {gte: 340}
+      note: "Extreme fear/withdrawal sub-category of the shell."
+    - id: magnesium_shell
+      when:
+        mg_ppm: {gt: 20}
+      note: "Definition only — Wilson publishes no severity tiers for the Mg shell."
+sub_patterns:
+  - id: shell_with_normal_ca_mg
+    when: {ca_mg_ratio: [3.5, 9.5]}
+    note: "Ratio maintained in the normal band despite the shell."
+  - id: shell_exceeding_carbohydrate_tolerance
+    when: {ca_mg_ratio: [9.5, 13.5]}
+    note: "Excess carbohydrate intake relative to tolerance."
+  - id: shell_with_spiritual_defensiveness
+    when: {ca_mg_ratio: {gt: 13.5}}
+    note: "See matrix/patterns/spiritual_defensiveness.yml."
+  - id: extreme_burnout_withdrawal
+    when: {ca_mg_ratio: {lt: 3.0}, test_type: initial}
+    note: "Ca/Mg < 3 on an initial test — extreme burnout / extreme withdrawal."
+  - id: hiding_pattern
+    when: {test_type: retest, ca_rise_to_shell: true}
+    note: |
+      A sharp rise in calcium to >= 165 (women) / >= 155 (men) on a retest signals a new
+      need for protection.
+reinforcing_combinations:
+  - "Na/K <= 1.0 (very low vitality)"
+  - "Very slow oxidation rate"
+  - "Sympathetic dominance (SD + shell = 'Trying Too Hard')"
+  - "High Ca/Mg ('Extreme Lifestyle Stress')"
+  - "Low Ca/Mg"
+  - "Fast oxidation, double high ratio, double low ratio, wasting-one's-time patterns"
+chart_annotations:
+  calcium_shell_female: |
+    Calcium shell — hair calcium {ca} mg% is above the 165 mg% threshold for women. A
+    protective layer of biounavailable calcium associated with psychological withdrawal,
+    trauma and a highly sensitive nervous system. Wilson: examine the emotional pattern
+    being defended; do NOT simply add magnesium.
+  calcium_shell_male: |
+    Calcium shell — hair calcium {ca} mg% is above the 155 mg% threshold for men. See the
+    withdrawal/defensiveness interpretation above.
+  petrified: |
+    "Petrified" pattern — calcium at or above 340 mg%. Wilson's term for extreme fear and
+    withdrawal; the shell has become the person's primary coping structure.
+  magnesium_shell: |
+    Magnesium shell — hair magnesium above 20 mg%. A less-studied analogue of the calcium
+    shell; Wilson publishes no severity tiers.
+references:
+  - "drlwilson.com/articles/CALCIUM%20SHELL.htm"
+  - "drlwilson.com/articles/QUANTIFY%20PATTERNS.htm"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart"

@@ -1,0 +1,49 @@
+bucket_id: slow_low_nak
+label: "Slow Oxidation + Low Na/K"
+oxidation: slow
+na_k_band: below_2.5
+description: |
+  Slow oxidizer with depleted vitality — Wilson's "tired slow oxidizer." Ca/K > 4 and
+  Na/Mg < 4.17 with Na/K below the ideal of 2.5, indicating adrenal exhaustion / chronic
+  stress rather than acute stress. Wilson's "victim pattern" lives here (slow + low Na/K).
+  Program intent: rebuild electrical potential first, raise the oxidation rate gently and
+  only second. Caffeine and other stimulants must be eliminated.
+  This is the ONE bucket that carries a supplement override — see
+  sympathetic_dominance_override.yml (applies when K <= 4 mg%).
+products:
+  - id: slowox
+    role: slow_oxidation_support
+    dose_modifier: standard
+    notes: |
+      The Valence equivalent of MegaPan. Reduced by the sympathetic dominance override
+      when K <= 4 mg%.
+  - id: adrenofuel
+    role: adrenal_support
+    dose_modifier: standard
+    notes: |
+      Cautious adrenal support. Swapped for ThyroSpark by the sympathetic dominance
+      override when K <= 4 mg%.
+  - id: cal-mag-fusion
+    role: calcium_magnesium
+    dose_modifier: standard
+    notes: "Aggressive bioavailable Ca/Mg is appropriate in the tired slow oxidizer."
+  - id: na-k-up
+    role: sodium_potassium_support
+    dose_modifier: standard
+    notes: |
+      The Valence equivalent of LimComin. Replaces Zinc Matrix Pro in every low-Na/K
+      bucket — never supplement zinc and Na/K Up together.
+  - id: kelp-max
+    role: thyroid_iodine
+    dose_modifier: standard
+    notes: "Iodine/trace-mineral thyroid support for the depleted slow oxidizer."
+  - id: cell-restore
+    role: methylation
+    dose_modifier: standard
+    notes: "Universal methylation support — present in all 6 buckets."
+references:
+  - "drlwilson.com/articles/OXID.SLOW..htm"
+  - "drlwilson.com/articles/LOW%20SODIUM%20POTASSIUM%20RATIO.htm"
+  - "drlwilson.com/articles/DOUBLE%20LOW%20RATIO.htm (victim pattern = slow + low Na/K)"
+  - "drlwilson.com/articles/SYMPATHETIC%20DOMINANCE.htm"
+  - "htma_app_bridge/syncers/protocols.py (canonical Valence product IDs)"

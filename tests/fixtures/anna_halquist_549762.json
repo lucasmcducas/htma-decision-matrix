@@ -1,0 +1,47 @@
+{
+  "subject": "Halquist, Anna",
+  "lab": "arl",
+  "lab_number": "549762",
+  "report_date": "2014-06-22",
+  "sex": "female",
+  "notes": "2014 ARL panel, female. Slow oxidation with low Na/K — Wilson's 'tired slow oxidizer.' Ca/Mg is in the normal 3.5-9.5 band, so the bowl pattern is NOT raised.",
+  "minerals": {
+    "ca_ppm": 64.0,
+    "mg_ppm": 9.0,
+    "na_ppm": 14.0,
+    "k_ppm": 7.0,
+    "fe_ppm": 1.1,
+    "cu_ppm": 1.6,
+    "zn_ppm": 14.0,
+    "mn_ppm": 0.05,
+    "cr_ppm": 0.04,
+    "se_ppm": 0.7,
+    "p_ppm": 14.0,
+    "b_ppm": 0.9,
+    "co_ppm": 0.004,
+    "mo_ppm": 0.015,
+    "li_ppm": 0.003,
+    "pb_ppm": 0.03,
+    "hg_ppm": 0.015,
+    "cd_ppm": 0.008,
+    "as_ppm": 0.02,
+    "al_ppm": 0.5,
+    "ni_ppm": 0.04,
+    "v_ppm": 0.04
+  },
+  "ratios": {
+    "ca_k": 9.14,
+    "na_mg": 1.56,
+    "na_k": 2.0,
+    "ca_mg": 7.11,
+    "ca_p": 4.57,
+    "fe_cu": 0.69,
+    "zn_cu": 8.75
+  },
+  "expected_classification": {
+    "oxidation": "slow",
+    "na_k_band": "below_2.5",
+    "bucket_id": "slow_low_nak",
+    "patterns": ["oxidation_slow", "burned_out"]
+  }
+}

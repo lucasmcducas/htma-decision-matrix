@@ -1,0 +1,35 @@
+override_id: sympathetic_dominance
+applies_to_bucket: slow_low_nak
+description: |
+  The ONLY supplement-level override in the matrix (locked rule 5). Sympathetic dominance
+  is Wilson's "pusher" pattern: a slow oxidizer whose potassium has fallen to 4 mg% or
+  below, running the sympathetic nervous system to stay functional. Wilson's own advice is
+  to reduce the slow-ox driver (MegaPan 2-2-2 → 1-1-1) and substitute a gentler thyroid
+  support for the adrenal glandular. Translated to the Valence catalog: SlowOx at a lower
+  dose, AdrenoFuel → ThyroSpark. Everything else in bucket 2 is unchanged.
+  All four other contradiction flags (Step Up copper, Four Highs crash-landing, Double
+  High zinc, Belligerence magnesium) are annotation-only and have no override file.
+detection:
+  requires:
+    oxidation: slow
+    na_k_band: below_2.5
+    k_max: 4.0
+  notes: |
+    Wilson's full SD definition is slow oxidation AND (K <= 4 mg% OR Na/K > 4). Only the
+    K <= 4 branch can co-occur with the low-Na/K band, so the override is gated on K alone
+    within bucket 2. The Na/K > 4 branch still raises the sympathetic-dominance chart
+    annotation in bucket 1, but changes no products there.
+overrides:
+  - replace: slowox
+    with: slowox
+    dose_modifier: lower
+    note: "Sympathetic dominance: reduce the slow-ox driver (Wilson: MegaPan 2-2-2 → 1-1-1)."
+  - replace: adrenofuel
+    with: thyro-spark
+    dose_modifier: standard
+    note: "Sympathetic dominance: swap AdrenoFuel for ThyroSpark (gentler thyroid-side support)."
+references:
+  - "drlwilson.com/articles/SYMPATHETIC%20DOMINANCE.htm"
+  - "drlwilson.com/articles/QUANTIFY%20PATTERNS.htm (SD indicator counting)"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart (existing SD detection rule)"
+  - "~/.hermes/plans/2026-09-08_133000-synthesis-for-luke.md (contradiction flag C1)"

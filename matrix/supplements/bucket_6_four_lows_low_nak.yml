@@ -1,0 +1,36 @@
+bucket_id: four_lows_low_nak
+label: "Four Lows + Low Na/K"
+oxidation: four_lows
+na_k_band: below_2.5
+description: |
+  Four lows pattern (Ca < 40, Mg < 6, Na < 25, K < 10 mg% — ALL four) combined with Na/K
+  below 2.5. Wilson's most serious chronic-stress configuration; with Na/K < 1 he calls it
+  the "very ill" pattern, and a step-down visual on top of it is a death-wish pattern.
+  Program intent: maximally gentle rebuild plus restoration of electrical potential. Same
+  contraindications as bucket 5 — no adrenal glandulars, no B-complex, no vitamin C or E,
+  no isolated potassium, no thyroid hormones.
+products:
+  - id: cal-mag-fusion
+    role: calcium_magnesium
+    dose_modifier: standard
+    notes: "Gentle bioavailable Ca/Mg to rebuild the depleted macromineral base."
+  - id: na-k-up
+    role: sodium_potassium_support
+    dose_modifier: standard
+    notes: |
+      The Valence equivalent of LimComin. Replaces Zinc Matrix Pro in every low-Na/K
+      bucket — never supplement zinc and Na/K Up together.
+  - id: kelp-max
+    role: thyroid_iodine
+    dose_modifier: standard
+    notes: "Trace-mineral/iodine nourishment, NOT thyroid stimulation."
+  - id: cell-restore
+    role: methylation
+    dose_modifier: standard
+    notes: "Universal methylation support — present in all 6 buckets."
+references:
+  - "drlwilson.com/articles/FOUR%20LOWS.htm"
+  - "drlwilson.com/Articles/DEATH%20PATTERNS.htm (four lows + Na/K < 1 = 'very ill' pattern)"
+  - "drlwilson.com/articles/LOW%20SODIUM%20POTASSIUM%20RATIO.htm"
+  - "htma-course-version-two/.../oxidation-types-fast-slow-mixed-four-lows.ts"
+  - "htma_app_bridge/syncers/protocols.py (canonical Valence product IDs)"

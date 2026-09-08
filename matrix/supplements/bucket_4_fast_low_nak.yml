@@ -1,0 +1,45 @@
+bucket_id: fast_low_nak
+label: "Fast Oxidation + Low Na/K"
+oxidation: fast
+na_k_band: below_2.5
+description: |
+  Fast oxidizer with depleted vitality — Wilson's "tired fast oxidizer." Ca/K < 4 and
+  Na/Mg > 4.17 but Na/K is below 2.5, so the person behaves clinically more like a slow
+  oxidizer than a fast one (Oxidation Types). Wilson's Step Up pattern (fast + double low
+  ratio) is detected here as an ANNOTATION only — its copper protocol does not change this
+  product list. Program intent: rest, slow down, rebuild electrical potential. Avoid
+  adrenal/thyroid glandulars, B-complex, vitamin C and E, and isolated potassium.
+products:
+  - id: fast-oxidizer
+    role: fast_oxidation_support
+    dose_modifier: standard
+    notes: "Valence fast-oxidizer base formula."
+  - id: cal-mag-fusion
+    role: calcium_magnesium
+    dose_modifier: higher
+    notes: "High calming Ca/Mg to slow the oxidation rate."
+  - id: na-k-up
+    role: sodium_potassium_support
+    dose_modifier: standard
+    notes: |
+      The Valence equivalent of LimComin. Replaces Zinc Matrix Pro in every low-Na/K
+      bucket — never supplement zinc and Na/K Up together.
+  - id: cell-restore
+    role: methylation
+    dose_modifier: standard
+    notes: "Universal methylation support — present in all 6 buckets."
+  - id: valence-fastcalm
+    role: nervous_system_calming
+    dose_modifier: standard
+    conditional:
+      description: "Add only when Na/K is deeply inverted (roughly Na/K < 2)."
+      na_k_max: 2.0
+    notes: |
+      Practitioner-gated addition, not part of the base list. Included when Na/K is
+      approximately below 2, where the calming need is pronounced.
+references:
+  - "drlwilson.com/Articles/OXID.FAST.htm"
+  - "drlwilson.com/articles/Oxidation%20Types%201104.htm (fast + low Na/K behaves like slow)"
+  - "drlwilson.com/articles/STEP%20UP-DOWN.HTM (annotation only — no supplement override)"
+  - "drlwilson.com/articles/LOW%20SODIUM%20POTASSIUM%20RATIO.htm"
+  - "htma_app_bridge/syncers/protocols.py (canonical Valence product IDs)"

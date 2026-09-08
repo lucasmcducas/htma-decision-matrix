@@ -1,0 +1,51 @@
+bucket_id: slow_high_nak
+label: "Slow Oxidation + High Na/K"
+oxidation: slow
+na_k_band: above_2.5
+description: |
+  Slow oxidizer with adequate vitality. Wilson's "healthy slow oxidizer" — adrenal and
+  thyroid activity are reduced (Ca/K > 4, Na/Mg < 4.17) but the Na/K vitality ratio is at
+  or above the human ideal of 2.5, so the electrical/cellular potential to run a program
+  is present. Roughly 80-85% of adults are slow oxidizers; this is the most common bucket.
+  Program intent: nourish and cautiously raise the oxidation rate. (Practitioner reference.)
+products:
+  - id: slowox
+    role: slow_oxidation_support
+    dose_modifier: standard
+    notes: |
+      The Valence equivalent of MegaPan. Daily AM/NOON/PM per practitioner protocol.
+  - id: adrenofuel
+    role: adrenal_support
+    dose_modifier: standard
+    notes: |
+      Na/K at or above 2.5 means the adrenals can accept support. Reduce or reconsider
+      if a sympathetic dominance annotation appears on a later retest.
+  - id: cal-mag-fusion
+    role: calcium_magnesium
+    dose_modifier: standard
+    notes: "Bioavailable Ca/Mg — the slow-oxidizer backbone."
+  - id: zinc-matrix-pro
+    role: zinc
+    dose_modifier: standard
+    notes: |
+      Zinc is indicated because Na/K is adequate. In every low-Na/K bucket this slot is
+      replaced by Na/K Up — never supplement both.
+  - id: valence-d3-k2
+    role: vitamin_d3_k2
+    dose_modifier: standard
+  - id: bile-flow-plus
+    role: digestive_support
+    dose_modifier: standard
+    notes: |
+      Slow oxidizers characteristically under-produce bile and stomach acid; supports the
+      higher-fat slow-oxidizer diet.
+  - id: cell-restore
+    role: methylation
+    dose_modifier: standard
+    notes: "Universal methylation support — present in all 6 buckets."
+references:
+  - "drlwilson.com/articles/OXID.SLOW..htm"
+  - "drlwilson.com/articles/Oxidation%20Types%201104.htm"
+  - "drlwilson.com/articles/sodium%20potassium%20ratio.htm"
+  - "htma-course-version-two/.../slow-oxidation-pattern.ts"
+  - "htma_app_bridge/syncers/protocols.py (canonical Valence product IDs)"

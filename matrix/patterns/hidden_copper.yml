@@ -1,0 +1,57 @@
+pattern_id: hidden_copper
+display_name: "Hidden Copper Pattern"
+affects: annotation_only
+description: |
+  Hair copper is NOT a sufficient measure of copper status — copper may be present in
+  the soft tissues in toxic amounts while hair copper reads normal. Wilson lists five
+  chart indicators that, when several appear together, suggest hidden or biounavailable
+  copper. Annotation only — the slow-ox buckets already include the balanced formulas
+  Wilson recommends (LimComin / Na-K Up + zinc + copper + Mn + B6), and the contradiction
+  flag C2 (Step Up copper) is annotation only.
+classifier:
+  input:
+    - k_ppm
+    - na_k_ratio
+    - zn_ppm
+    - p_ppm
+    - ca_ppm
+    - cu_ppm
+  indicators:
+    - id: low_k
+      when: {k_ppm: {lt: 10}}
+    - id: low_na_k
+      when: {na_k_ratio: {lt: 2.5}}
+    - id: low_zn
+      when: {zn_ppm: {lt: 12}}
+    - id: low_p
+      when: {p_ppm: {lt: 14}}
+    - id: high_ca
+      when: {ca_ppm: {gt: 100}}
+  rules:
+    - id: hidden_copper_probable
+      when:
+        indicator_count: {gte: 3}
+      note: "3+ of 5 Wilson hidden-copper indicators."
+      severity:
+        mild: {indicator_count: 3}
+        moderate: {indicator_count: 4}
+        severe: {indicator_count: 5}
+    - id: hidden_copper_strong
+      when:
+        indicator_count: {gte: 4}
+      note: "4+ indicators — Wilson's 'strong signal' tier."
+chart_annotations:
+  hidden_copper_probable: |
+    Probable hidden copper — {count} of 5 Wilson indicators present: {indicators_list}.
+    Hair copper alone is NOT a sufficient measure of copper status; copper may be
+    biounavailable. The slow-ox bucket program already includes the balanced formulas
+    Wilson recommends. Annotation only.
+  hidden_copper_strong: |
+    Strong hidden-copper signal — 4 or more of Wilson's 5 indicators present
+    ({indicators_list}). Annotation only.
+references:
+  - "drlwilson.com/articles/COPPER%20TOXICITY.htm"
+  - "drlwilson.com/articles/CALCIUM%20SHELL.htm (hidden-copper indicator list)"
+  - "drlwilson.com/articles/POOR%20ELIMINATOR.htm"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart"
+  - "~/.hermes/plans/2026-09-08_133000-synthesis-for-luke.md (contradiction flag C2 + C4 area)"

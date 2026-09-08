@@ -1,0 +1,47 @@
+{
+  "subject": "Phillips, Nathan",
+  "lab": "arl",
+  "lab_number": "850100",
+  "report_date": "2026-08-15",
+  "sex": "male",
+  "notes": "Real ARL panel extracted during the 2026-09-08 session. Slow oxidizer with high Na/K — Wilson's 'healthy slow oxidizer.'",
+  "minerals": {
+    "ca_ppm": 73.0,
+    "mg_ppm": 8.5,
+    "na_ppm": 22.0,
+    "k_ppm": 4.0,
+    "fe_ppm": 1.4,
+    "cu_ppm": 1.8,
+    "zn_ppm": 18.0,
+    "mn_ppm": 0.08,
+    "cr_ppm": 0.05,
+    "se_ppm": 0.9,
+    "p_ppm": 16.0,
+    "b_ppm": 1.5,
+    "co_ppm": 0.005,
+    "mo_ppm": 0.02,
+    "li_ppm": 0.005,
+    "pb_ppm": 0.05,
+    "hg_ppm": 0.02,
+    "cd_ppm": 0.01,
+    "as_ppm": 0.03,
+    "al_ppm": 0.8,
+    "ni_ppm": 0.05,
+    "v_ppm": 0.05
+  },
+  "ratios": {
+    "ca_k": 18.25,
+    "na_mg": 2.59,
+    "na_k": 5.5,
+    "ca_mg": 8.59,
+    "ca_p": 4.56,
+    "fe_cu": 0.78,
+    "zn_cu": 10.0
+  },
+  "expected_classification": {
+    "oxidation": "slow",
+    "na_k_band": "above_2.5",
+    "bucket_id": "slow_high_nak",
+    "patterns": ["oxidation_slow"]
+  }
+}

@@ -1,0 +1,69 @@
+pattern_id: poor_eliminator
+display_name: "Poor Eliminator"
+affects: annotation_only
+description: |
+  An extremely low reading of a toxic metal or one of certain nutrient minerals BELOW the
+  "poor eliminator" cutoffs in MIN.IDEALS.htm. A low toxic-metal reading does NOT mean
+  the body is free of the metal — it may be sequestered and unable to be eliminated. On a
+  retest a previously low toxic metal RISING is a positive mobilization signal. Annotation
+  only.
+classifier:
+  input:
+    - pb_ppm
+    - hg_ppm
+    - cd_ppm
+    - as_ppm
+    - al_ppm
+    - ni_ppm
+  rules:
+    - id: poor_eliminator
+      when_any:
+        - pb_ppm: {lt: 0.02}
+        - hg_ppm: {lt: 0.02}
+        - cd_ppm: {lt: 0.004}
+        - as_ppm: {lt: 0.004}
+        - al_ppm: {lt: 0.08}
+        - ni_ppm: {lt: 0.015}
+      note: |
+        Wilson's exact per-mineral "poor eliminator" cutoffs are taken from MIN.IDEALS.htm
+        (Oct 2025): Pb < 0.02, Hg < 0.02, Cd < 0.004, As < 0.004, Al < 0.08, Ni < 0.015.
+        The Dart engine uses 0.01 mg% as a generous floor for any toxic; that
+        simplification is captured here for backwards compatibility.
+      severity:
+        mild: {low_count: 2}
+        moderate: {low_count: 3}
+        severe: {low_count: [4, null]}
+      severity_note: |
+        Wilson's deeper tiers: "very poor eliminator" and "very, very poor eliminator" use
+        a per-mineral second threshold. "All poors" = 6+ poor eliminators on a single
+        chart.
+    - id: very_poor_eliminator
+      when:
+        poor_eliminator: true
+        any_very_poor_mineral: true
+      note: "A subset of the poor_eliminator pattern — annotation only."
+    - id: all_poors
+      when:
+        low_count: {gte: 6}
+      note: "6+ poor eliminators on a single chart."
+chart_annotations:
+  poor_eliminator: |
+    Poor eliminator pattern — {count} toxic metals below the per-mineral cutoff
+    ({toxics_list}). A low toxic-metal reading does NOT mean the body is free of the metal;
+    it may be sequestered and unable to be eliminated. Wilson: support the whole mineral
+    system, digestion, liver and kidney. On a retest a previously low toxic metal rising
+    can be a positive mobilization signal.
+  very_poor_eliminator: |
+    Very poor eliminator — at least one mineral in the deeper "very poor" tier. Adds
+    severity to the poor-eliminator pattern.
+  all_poors: |
+    "All poors" pattern — 6+ poor eliminators on a single chart. Wilson's worst-case
+    configuration for toxic-metal retention.
+retest_note: |
+  On a retest, a previously low toxic metal RISING is a positive mobilization signal and
+  should be reflected in the report's narrative (Wilson: "an increase is a sign of
+  progress"). No bucket change.
+references:
+  - "drlwilson.com/articles/POOR%20ELIMINATOR.htm"
+  - "drlwilson.com/articles/MIN.IDEALS.htm"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart"

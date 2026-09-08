@@ -1,0 +1,57 @@
+pattern_id: bowl
+display_name: "Bowl Pattern"
+affects: annotation_only
+description: |
+  A U-shape formed by the first four macrominerals on the ARL chart when Na/K is below
+  2.5 and Ca/Mg is above 9.5. Wilson's yin / blood-deficiency correlate; the person feels
+  stuck, mentally and emotionally. Annotation only — supplements continue to follow the
+  bucket (which is always one of the low-Na/K buckets in this configuration).
+classifier:
+  input:
+    - na_k_ratio
+    - ca_mg_ratio
+    - ca_ppm
+    - mg_ppm
+    - na_ppm
+    - k_ppm
+  rules:
+    - id: bowl
+      when:
+        na_k_ratio: {lt: 2.5}
+        ca_mg_ratio: {gt: 9.5}
+      severity:
+        mild: {ca_mg_ratio: [9.5, 13.5]}
+        moderate: {ca_mg_ratio: [13.5, 18.0]}
+        severe: {ca_mg_ratio: [18.0, null]}
+      severity_note: |
+        Wilson's multiplier tiers: 1x mild/moderate, 2x double bowl or deep bowl, 3x above
+        + mild four lows, 4x + low four lows on one tetra, 5x + low four lows on both
+        tetras, 6x + extreme/deep bowl.
+sub_patterns:
+  - id: fast_bowl
+    when: {oxidation: fast}
+  - id: slow_bowl
+    when: {oxidation: slow}
+  - id: deep_bowl
+    note: "Very unbalanced bowl."
+  - id: low_bowl
+    when: {four_lows: true}
+  - id: high_bowl
+    when: {three_or_four_highs: true}
+  - id: double_bowl
+    when: {bowl_count: 2}
+  - id: drastic_double_bowl
+    when: {first_tetra_bowl: true, second_tetra_bowl: true}
+  - id: deep_four_lows_bowl
+    when: {bowl: true, four_lows: true, low_four_lows: true}
+  - id: triple_bowl
+    when: {bowl_count: 3}
+chart_annotations:
+  bowl: |
+    Bowl pattern — Na/K {na_k} is below 2.5 with Ca/Mg of {ca_mg}, forming a U on the chart.
+    Wilson's yin / blood-deficiency correlate: the person feels stuck, trapped, mentally
+    and emotionally. Continue the bucket program; annotate the stuckness.
+references:
+  - "drlwilson.com/articles/BOWL.HTM"
+  - "drlwilson.com/articles/DOUBLE%20PATTERNS.htm"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart"

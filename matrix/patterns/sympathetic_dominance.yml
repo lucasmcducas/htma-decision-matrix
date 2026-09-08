@@ -1,0 +1,80 @@
+pattern_id: sympathetic_dominance
+display_name: "Sympathetic Dominance"
+affects: annotation_and_override
+description: |
+  Wilson's "pusher" pattern — chronic overuse of the sympathetic nervous system to stay
+  functional, masking underlying exhaustion. Dr. Eck did not recognize this pattern; it is
+  a Wilson-era addition. This is the ONE pattern that also carries a supplement override,
+  and only inside bucket 2 (slow + low Na/K); see
+  matrix/supplements/sympathetic_dominance_override.yml.
+classifier:
+  input:
+    - oxidation
+    - k_ppm
+    - na_k_ratio
+    - ca_mg_ratio
+    - ca_ppm
+  rules:
+    - id: sympathetic_dominance
+      when:
+        oxidation: slow
+      when_any:
+        - k_ppm: {lte: 4.0}
+        - na_k_ratio: {gt: 4.0}
+      note: |
+        Requires slow oxidation AND (K <= 4 mg% OR Na/K > ~4). The Dart engine implements
+        exactly this rule.
+      severity:
+        mild: {k_ppm: [4.0, null]}
+        moderate: {k_ppm: [2.0, 4.0]}
+        severe: {k_ppm: [null, 2.0]}
+      severity_note: |
+        Wilson counts indicators rather than grading: K = 4 mg% is 1 indicator, K = 3 is 2,
+        K = 2 is 3, K = 1 is 4, K < 1 is 5+. Add one more for K <= 4 with Na/K > 3-4,
+        another if Ca/Mg > 9.5, one for four lows present, and one for every 4 poor
+        eliminator patterns. A single chart can carry 5, 10 or 15 SD indicators.
+    - id: burned_out_sympathetic_dominance
+      when:
+        oxidation: slow
+        k_ppm: {lte: 4.0}
+        na_k_ratio: {lt: 2.5}
+      note: "SD criteria plus Na/K < 2.5. This is the configuration the override targets."
+    - id: hunted_pattern
+      when:
+        k_ppm: {lte: 1.0}
+        ca_k_ratio: {gt: 200}
+        na_k_ratio: {gte: 4.0}
+      note: "Extreme SD variant. Annotation only."
+sub_patterns:
+  - id: trying_too_hard
+    when: {sympathetic_dominance: true, ca_ppm: {gte: 165}}
+    note: "SD + calcium shell. Annotation only."
+  - id: wasting_ones_time
+    when: {k_ppm: {lte: 4.0}, ca_ppm: {gte: 165}, ca_mg_ratio: {gte: 13.5}}
+    note: "Annotation only."
+  - id: stress_from_within_and_without
+    when: {sympathetic_dominance: true, ca_mg_ratio: {gt: 13.5}}
+    note: "Annotation only."
+  - id: trying_hard_to_stay_afloat
+    when: {sympathetic_dominance: true, na_k_ratio: {gt: 5}, ca_mg_ratio: {gt: 10}}
+    note: "SD + double high ratio with two or three highs (not four). Annotation only."
+  - id: workaholic
+    when: {highs_count: 3, na_k_ratio: {gt: 3}}
+    note: "Annotation only."
+chart_annotations:
+  sympathetic_dominance: |
+    Sympathetic dominance — slow oxidation with potassium at {k} mg% and/or Na/K of {na_k}.
+    The body is in resistance or exhaustion but still pushing; chronic fatigue hidden
+    behind activity, the feeling of being chased. Wilson: slow every activity down, stop
+    all stimulants, more rest, gentle movement, the Pulling Down exercise at 6pm.
+  burned_out_sympathetic_dominance: |
+    Burned-out sympathetic dominance — SD criteria with Na/K below 2.5. The reserves behind
+    the pushing are gone. Supplement program is reduced accordingly (SlowOx at lower dose,
+    ThyroSpark in place of AdrenoFuel).
+  hunted_pattern: |
+    "Hunted" pattern — extreme sympathetic dominance (K <= 1 mg%, Ca/K > 200, Na/K >= 4).
+    The most severe SD configuration Wilson names.
+references:
+  - "drlwilson.com/articles/SYMPATHETIC%20DOMINANCE.htm"
+  - "drlwilson.com/articles/QUANTIFY%20PATTERNS.htm"
+  - "htma_labs/lib/core/wilson/pattern_detector.dart"
