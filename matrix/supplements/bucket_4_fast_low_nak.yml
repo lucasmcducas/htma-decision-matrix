@@ -27,6 +27,8 @@ products:
         - { na_k_max: 1.0, dose: { am: "2 caps", noon: "2 caps", pm: "2 caps" } }
         - { na_k_max: 1.5, dose: { am: "2 caps", noon: "1 cap",  pm: "2 caps" } }
         - { na_k_max: 1.75, dose: { am: "1 cap", noon: "1 cap", pm: "1 cap" } }
+        - { na_k_max: 1.85, dose: { am: "1 cap", noon: "1 cap", pm: "0" } }
+        - { na_k_max: 1.99, dose: { am: "1 cap", noon: "1 cap", pm: "0" } }
         - { na_k_max: 2.0, dose: { am: "1 cap",  noon: "0",     pm: "0" } }
         - { na_k_max: null, dose: { am: "0",    noon: "0",      pm: "0" } }
     notes: |
