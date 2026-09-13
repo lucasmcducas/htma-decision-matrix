@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://htma-decision-matrix/schemas/standard_protocols.schema.json",
+  "title": "HTMA Standard Protocols — per-product default doses",
+  "description": "Schema for matrix/standard_protocols.yml. Per-product AM/NOON/PM default dose triples for products without a dose_schedule. Loaded by htma_decision_matrix.standard_protocols at runtime.",
+  "type": "object",
+  "required": ["version", "description", "products"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "description": {"type": "string"},
+    "products": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["am", "noon", "pm"],
+        "additionalProperties": false,
+        "properties": {
+          "am": {"type": "string"},
+          "noon": {"type": "string"},
+          "pm": {"type": "string"}
+        }
+      }
+    }
+  }
+}

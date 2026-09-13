@@ -344,3 +344,145 @@ def drop_age_gated_products(
             f"the age-{gate_int} gate (per HTMA Kids Matrix v2 age gates)."
         )
     return kept, warnings
+
+
+# ── Na/K-aware dose selection (Phase 2, v2) ────────────────────────────────
+
+
+def dose_at_nak(
+    anchors: list[dict] | tuple[dict, ...] | None,
+    na_k: float,
+) -> tuple[str | None, str | None, str | None]:
+    """Pick the adult (am, noon, pm) dose for a Na/K value from an anchor ladder.
+
+    Walks the anchor ladder in order. Each anchor declares a `na_k_max`
+    (inclusive) and a dose triple. The first anchor whose `na_k_max` is
+    None (the ceiling) catches all values above the prior anchor.
+
+    Args:
+        anchors: list of {"na_k_max": float | None, "dose": {am,noon,pm}}.
+                 Usually loaded from a SupplementProduct.dose_schedule.
+        na_k: the panel's Na/K ratio.
+
+    Returns:
+        (am, noon, pm) tuple of dose strings from the picked anchor.
+        Returns (None, None, None) if anchors is empty or the Na/K value
+        is below the first anchor (callers should treat this as "not
+        applicable for this bucket" — see locked rule 3: low-Na/K buckets
+        swap zinc for na-k-up).
+    """
+    if not anchors:
+        return (None, None, None)
+
+    prev_max: float | None = None
+    for anchor in anchors:
+        max_val = anchor.get("na_k_max")
+        dose = anchor.get("dose", {})
+        if max_val is None:
+            # Ceiling anchor — catches everything above prev_max.
+            if prev_max is None or na_k > prev_max:
+                return (
+                    dose.get("am"),
+                    dose.get("noon"),
+                    dose.get("pm"),
+                )
+            # Mid-list ceiling (malformed anchor ladder) — skip.
+            continue
+        # First anchor with na_k_max >= na_k (inclusive).
+        if na_k <= max_val:
+            return (
+                dose.get("am"),
+                dose.get("noon"),
+                dose.get("pm"),
+            )
+        prev_max = max_val
+    # Fell off the end — return ceiling's dose if there was one.
+    last = anchors[-1]
+    dose = last.get("dose", {})
+    return (
+        dose.get("am"),
+        dose.get("noon"),
+        dose.get("pm"),
+    )
+
+
+def kids_dose_at_nak(
+    dose_schedule: dict | None,
+    age: int | float | None,
+    na_k: float | None = None,
+    *,
+    calmag_skew: bool = False,
+) -> tuple[str, str, str]:
+    """Pick the right anchor for Na/K, then apply kids_dose() to scale for age.
+
+    Convenience wrapper combining `dose_at_nak()` and `kids_dose()`. Used
+    by the viewer data builder and the report writer for products whose
+    dose varies by Na/K (zinc-matrix-pro, na-k-up).
+
+    Args:
+        dose_schedule: dict with `anchors` list, or None for products
+                      without an Na/K-driven ladder.
+        age: patient age in years. None / >= adult_threshold returns
+             the anchor dose unchanged.
+        na_k: panel Na/K ratio. None falls back to 2.5 (the human ideal
+              — the v1 viewer used this as the default slider position).
+              For the na-k-up product (low-Na/K buckets), pass an
+              explicit value < 2.0 or you'll get the empty anchor.
+        calmag_skew: passed through to kids_dose().
+
+    Returns:
+        (am, noon, pm) tuple with NOON slot = "0" for kids. Falls back to
+        ("0", "0", "0") if dose_schedule is missing or empty.
+    """
+    if not dose_schedule or not dose_schedule.get("anchors"):
+        return ("0", "0", "0")
+
+    target_nak = na_k if na_k is not None else 2.5
+    anchors = dose_schedule["anchors"]
+    am, noon, pm = dose_at_nak(anchors, target_nak)
+    if am is None:
+        return ("0", "0", "0")
+
+    return kids_dose(am, noon, pm, age, calmag_skew=calmag_skew)
+
+
+def kids_dose_for_product(
+    product,
+    age: int | float | None,
+    na_k: float | None = None,
+) -> tuple[str, str, str]:
+    """Compute the kid-scaled dose for one product.
+
+    For products with a `dose_schedule` (zinc-matrix-pro, na-k-up),
+    uses the Na/K-aware path: pick the anchor for `na_k` (or 2.5
+    default), then kids_dose() scales for age.
+
+    For products without a `dose_schedule`, returns the static
+    (am, noon, pm) from `dose_modifier` — but the loader doesn't carry
+    per-slot doses for these products yet, so the practical answer is
+    ("0", "0", "0") with a warning. Phase 3 will add per-slot static
+    doses for non-NAK products.
+
+    Args:
+        product: a SupplementProduct (or any object with .id and
+                .dose_schedule attributes).
+        age: patient age in years.
+        na_k: panel Na/K ratio. None falls back to 2.5 (default).
+
+    Returns:
+        (am, noon, pm) kid-scaled dose triple.
+    """
+    skew = calmag_skew_applies_to(product.id)
+    if product.dose_schedule:
+        target_nak = na_k if na_k is not None else 2.5
+        anchors = product.dose_schedule.get("anchors", [])
+        if anchors:
+            am, noon, pm = dose_at_nak(anchors, target_nak)
+            if am is None:
+                return ("0", "0", "0")
+            return kids_dose(am, noon, pm, age, calmag_skew=skew)
+    # Static-dose product: v2 loader doesn't carry per-slot doses for
+    # these. The viewer infers them from context (e.g. dose_modifier
+    # standard -> 1 cap / 1 cap / 1 cap). Return a sentinel; the data
+    # builder script handles the conversion when generating viewer cells.
+    return ("__static__", "__static__", "__static__")

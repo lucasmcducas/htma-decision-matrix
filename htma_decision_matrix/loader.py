@@ -29,6 +29,15 @@ class SupplementProduct:
     notes: str = ""
     # Optional metadata from the YAML (e.g., conditional additions)
     conditional: dict | None = None
+    # Optional Na/K-ratio-driven dose ladder. When set, products like
+    # zinc-matrix-pro and na-k-up have their dose vary by the panel's Na/K.
+    # Schema: {"type": "linear", "metric": "na_k",
+    #          "anchors": [{"na_k_max": float|null,
+    #                       "dose": {"am": str, "noon": str, "pm": str}}, ...]}
+    # Audit Critical 1 fix (2026-09-12): the v1 loader silently discarded
+    # this field. v2 carries it through so consumers can drive per-slot doses
+    # from the matrix without re-parsing YAML.
+    dose_schedule: dict | None = None
 
 
 @dataclass
@@ -118,6 +127,7 @@ class Matrix:
                         dose_modifier=p.get("dose_modifier", "standard"),
                         notes=p.get("notes", ""),
                         conditional=p.get("conditional"),
+                        dose_schedule=p.get("dose_schedule"),
                     )
                 )
             buckets[data["bucket_id"]] = SupplementBucket(

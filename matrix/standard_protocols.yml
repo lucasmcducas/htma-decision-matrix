@@ -1,0 +1,37 @@
+# HTMA Standard Protocols — per-product default dose triples
+#
+# Per-product AM/NOON/PM default doses. Used for products WITHOUT a
+# `dose_schedule` (i.e., non-NAK-driven products). The runtime prefers
+# `dose_schedule.anchors` when present (zinc-matrix-pro, na-k-up); this
+# table is the fallback.
+#
+# Lifted from lab_pipeline/interpreter/doses.py STANDARD_DOSES (2026-09-08,
+# locked rule 6). Lives in the matrix repo so the matrix owns the complete
+# dose picture and downstream consumers (writers, viewers) don't need a
+# parallel table.
+#
+# Schema: product_id -> {am, noon, pm} where each value is a dose string
+# ("0", "1 cap", "2 caps", "½ cap", etc.).
+version: "2.0.0"
+description: |
+  Standard per-product AM/NOON/PM doses for products without a
+  dose_schedule. Locks Wilson/Valence protocols at 2026-09-08.
+
+products:
+  slowox:          { am: "1 cap",  noon: "1 cap", pm: "1 cap" }
+  fast-oxidizer:   { am: "1 cap",  noon: "1 cap", pm: "1 cap" }
+  fastcalm:        { am: "1 cap",  noon: "1 cap", pm: "1 cap" }   # was 2 caps, 0, 2 caps — 2026-09-08
+  valence-fastcalm: { am: "1 cap", noon: "1 cap", pm: "1 cap" }   # alias for fastcalm (writer-synthesized in fast-ox high-Na/K swap)
+  adrenofuel:      { am: "1 cap",  noon: "1 cap", pm: "1 cap" }   # was 2 caps, 0, 2 caps — 2026-09-08
+  thyro-spark:     { am: "1 cap",  noon: "1 cap", pm: "1 cap" }   # was 1 cap, 0, 1 cap — 2026-09-08
+  cal-mag-fusion:  { am: "2 caps", noon: "2 caps", pm: "2 caps" } # was 2 caps, 0, 2 caps — 2026-09-08
+  zinc-matrix-pro: { am: "1 cap",  noon: "0",     pm: "1 cap" }   # fallback only — runtime prefers dose_schedule
+  na-k-up:         { am: "1 cap",  noon: "0",     pm: "1 cap" }   # fallback only — runtime prefers dose_schedule
+  bile-flow-plus:     { am: "1 cap", noon: "1 cap", pm: "1 cap" } # 2026-09-08: was 1 cap AM, 1 cap NOON, 0 PM
+  cell-restore:       { am: "2 caps", noon: "2 caps", pm: "2 caps" } # 2026-09-08: was 1 cap NOON, 0, 1 cap
+  valence-d3-k2:      { am: "0",      noon: "0",      pm: "1 cap" }  # 2026-09-08: was 1 cap AM, 0, 1 cap
+  kelp-max:           { am: "2 caps", noon: "2 caps", pm: "2 caps" } # 2026-09-08. Fast-ox override 1-1-0 lives in writer.py.
+  red-pilled-sockeye: { am: "0",      noon: "0",      pm: "1 cap" }  # 2026-09-08: NEW — fish oil 1000 mg/day
+  valence-se:         { am: "2 caps", noon: "2 caps", pm: "2 caps" } # 2026-09-08: NEW — selenium (optional)
+  kidney-flow:        { am: "1 cap",  noon: "1 cap",  pm: "1 cap" }  # 2026-09-08: NEW — kidney support (optional)
+  nervcalm:           { am: "1 cap",  noon: "0",      pm: "2 caps" }

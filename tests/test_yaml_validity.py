@@ -24,6 +24,7 @@ SCHEMAS = {
     "patterns": json.loads((SCHEMA_DIR / "pattern.schema.json").read_text()),
     "overrides": json.loads((SCHEMA_DIR / "override.schema.json").read_text()),
     "age_scaling": json.loads((SCHEMA_DIR / "age_scaling.schema.json").read_text()),
+    "standard_protocols": json.loads((SCHEMA_DIR / "standard_protocols.schema.json").read_text()),
 }
 
 
@@ -38,6 +39,8 @@ def _classify_yaml(yaml_path: Path) -> str:
         return "patterns"
     if "age_scaling" in parts:
         return "age_scaling"
+    if yaml_path.stem == "standard_protocols":
+        return "standard_protocols"
     raise ValueError(f"Cannot classify YAML: {yaml_path}")
 
 

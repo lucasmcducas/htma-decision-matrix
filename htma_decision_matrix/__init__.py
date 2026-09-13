@@ -17,7 +17,7 @@ The decision YAMLs are the source of truth. This package only loads them.
 """
 from __future__ import annotations
 
-from . import age_scaling
+from . import age_scaling, standard_protocols
 from .loader import (
     InterpretationPattern,
     Matrix,
@@ -37,4 +37,5 @@ __all__ = [
     "age_scaling",
     "load_matrix",
     "load_matrix_for_age",
+    "standard_protocols",
 ]

@@ -431,3 +431,114 @@ def test_kid_dose_reduction_pipeline_age_12_slow_high_nak_zinc():
     """
     am, noon, pm = age_scaling.kids_dose("1 cap", "0", "1 cap", 12)
     assert (am, noon, pm) == ("½ cap", "0", "½ cap")
+
+
+# ── Phase 2: Na/K-aware functions ───────────────────────────────────────────
+
+
+def test_dose_at_nak_picks_correct_anchor_for_zinc_ladder():
+    """The 4-anchor zinc ladder:
+        2.5 -> 0-0-1
+        4.0 -> 1-0-1
+        6.0 -> 1-1-1
+        null -> 1-1-2 (ceiling)
+    """
+    anchors = [
+        {"na_k_max": 2.5, "dose": {"am": "0", "noon": "0", "pm": "1 cap"}},
+        {"na_k_max": 4.0, "dose": {"am": "1 cap", "noon": "0", "pm": "1 cap"}},
+        {"na_k_max": 6.0, "dose": {"am": "1 cap", "noon": "1 cap", "pm": "1 cap"}},
+        {"na_k_max": None, "dose": {"am": "1 cap", "noon": "1 cap", "pm": "2 caps"}},
+    ]
+    assert age_scaling.dose_at_nak(anchors, 1.0) == ("0", "0", "1 cap")  # below 2.5 still picks first
+    assert age_scaling.dose_at_nak(anchors, 2.5) == ("0", "0", "1 cap")
+    assert age_scaling.dose_at_nak(anchors, 2.6) == ("1 cap", "0", "1 cap")  # > 2.5 picks next
+    assert age_scaling.dose_at_nak(anchors, 4.0) == ("1 cap", "0", "1 cap")
+    assert age_scaling.dose_at_nak(anchors, 5.0) == ("1 cap", "1 cap", "1 cap")
+    assert age_scaling.dose_at_nak(anchors, 6.0) == ("1 cap", "1 cap", "1 cap")
+    assert age_scaling.dose_at_nak(anchors, 6.1) == ("1 cap", "1 cap", "2 caps")  # ceiling
+    assert age_scaling.dose_at_nak(anchors, 100.0) == ("1 cap", "1 cap", "2 caps")
+
+
+def test_dose_at_nak_handles_empty_anchors():
+    assert age_scaling.dose_at_nak(None, 2.5) == (None, None, None)
+    assert age_scaling.dose_at_nak([], 2.5) == (None, None, None)
+
+
+def test_kids_dose_at_nak_age_8_zinc_at_4():
+    """End-to-end: zinc-matrix-pro at Na/K=4.0 for age 8.
+
+    Adult anchor at Na/K=4.0 = {am: "1 cap", noon: "0", pm: "1 cap"}.
+    Age 8 factor = 0.583. AM: 1*0.583 = 0.583 -> ½ cap. PM: 0.583 -> ½ cap.
+    """
+    sched = {"anchors": [
+        {"na_k_max": 2.5, "dose": {"am": "0", "noon": "0", "pm": "1 cap"}},
+        {"na_k_max": 4.0, "dose": {"am": "1 cap", "noon": "0", "pm": "1 cap"}},
+        {"na_k_max": 6.0, "dose": {"am": "1 cap", "noon": "1 cap", "pm": "1 cap"}},
+        {"na_k_max": None, "dose": {"am": "1 cap", "noon": "1 cap", "pm": "2 caps"}},
+    ]}
+    am, noon, pm = age_scaling.kids_dose_at_nak(sched, 8, na_k=4.0)
+    assert (am, noon, pm) == ("½ cap", "0", "½ cap")
+
+
+def test_kids_dose_at_nak_age_12_zinc_at_4():
+    """Age 12 factor = 0.75. AM: 1*0.75 = 0.75 -> ½. PM: 0.75 -> ½."""
+    sched = {"anchors": [
+        {"na_k_max": 4.0, "dose": {"am": "1 cap", "noon": "0", "pm": "1 cap"}},
+    ]}
+    assert age_scaling.kids_dose_at_nak(sched, 12, na_k=4.0) == ("½ cap", "0", "½ cap")
+
+
+def test_kids_dose_at_nak_age_18_returns_adult_dose():
+    """Age 18 (adult) returns the picked anchor's dose unchanged."""
+    sched = {"anchors": [
+        {"na_k_max": 4.0, "dose": {"am": "1 cap", "noon": "0", "pm": "1 cap"}},
+    ]}
+    assert age_scaling.kids_dose_at_nak(sched, 18, na_k=4.0) == ("1 cap", "0", "1 cap")
+
+
+def test_kids_dose_at_nak_with_missing_schedule_returns_zeros():
+    """Products with no dose_schedule default to all-zero for kids."""
+    assert age_scaling.kids_dose_at_nak(None, 8, na_k=4.0) == ("0", "0", "0")
+    assert age_scaling.kids_dose_at_nak({}, 8, na_k=4.0) == ("0", "0", "0")
+    assert age_scaling.kids_dose_at_nak({"anchors": []}, 8, na_k=4.0) == ("0", "0", "0")
+
+
+def test_kids_dose_at_nak_without_nak_uses_default_2_5():
+    """When na_k is None, falls back to Na/K=2.5 (zinc starting anchor)."""
+    sched = {"anchors": [
+        {"na_k_max": 2.5, "dose": {"am": "0", "noon": "0", "pm": "1 cap"}},
+        {"na_k_max": 4.0, "dose": {"am": "1 cap", "noon": "0", "pm": "1 cap"}},
+    ]}
+    # Na/K=2.5 anchor: AM=0, NOON=0, PM=1 cap. Age 8: PM=0.583 -> ½ cap.
+    assert age_scaling.kids_dose_at_nak(sched, 8) == ("0", "0", "½ cap")
+
+
+def test_kids_dose_for_product_uses_dose_schedule_for_zinc():
+    """zinc-matrix-pro has dose_schedule; kids_dose_for_product should use it."""
+    from htma_decision_matrix import load_matrix
+
+    m = load_matrix()
+    b1 = m.buckets["slow_high_nak"]
+    zinc = next(p for p in b1.products if p.id == "zinc-matrix-pro")
+    assert zinc.dose_schedule is not None, "Critical 1 fix: loader must expose dose_schedule"
+
+    am, noon, pm = age_scaling.kids_dose_for_product(zinc, 8, na_k=4.0)
+    assert (am, noon, pm) == ("½ cap", "0", "½ cap")
+
+
+def test_kids_dose_for_product_returns_static_sentinel_for_non_nak_products():
+    """Products without dose_schedule (most products) get the static sentinel.
+
+    Phase 3 will replace this with proper per-slot static doses.
+    """
+    from htma_decision_matrix import load_matrix
+
+    m = load_matrix()
+    b1 = m.buckets["slow_high_nak"]
+    cell_restore = next(p for p in b1.products if p.id == "cell-restore")
+    assert cell_restore.dose_schedule is None
+    assert age_scaling.kids_dose_for_product(cell_restore, 8, na_k=4.0) == (
+        "__static__",
+        "__static__",
+        "__static__",
+    )
