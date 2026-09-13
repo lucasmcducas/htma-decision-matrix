@@ -42,6 +42,9 @@ class SupplementBucket:
     products: list[SupplementProduct]
     description: str = ""
     references: list[str] = field(default_factory=list)
+    # Populated by load_matrix_for_age() when products are dropped
+    # due to age gates. Empty for the adult path.
+    age_warnings: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -169,3 +172,60 @@ class Matrix:
 def load_matrix(repo_path: Path | None = None) -> Matrix:
     """Convenience wrapper around Matrix.load(repo_path)."""
     return Matrix.load(repo_path)
+
+
+def load_matrix_for_age(age: int | float | None, repo_path: Path | None = None) -> Matrix:
+    """Load the matrix, optionally with kid age-gating applied.
+
+    Phase 1 (v2.0.0):
+        - Adults (age >= 19 or None): same as load_matrix().
+        - Kids (age < 19): products below their age gate are dropped
+          (AdrenoFuel <9, ThyroSpark <5). The dropped product IDs and
+          reasons are recorded in `bucket.age_warnings`.
+
+    Phase 2 (planned, separate commit):
+        - Per-slot dose scaling via age_scaling.kids_dose(). Requires
+          `dose_schedule` to be exposed on SupplementProduct (audit
+          Critical 1 finding). Today the matrix repo's loader doesn't
+          carry per-slot doses — lab_pipeline has its own loader fork
+          that does, and v2 Phase 2 will reconcile them.
+
+    Args:
+        age: patient age in years. None = adult (same as load_matrix()).
+        repo_path: optional repo path override.
+
+    Returns:
+        A Matrix where every bucket's products reflect the given age's
+        gate policy. The Matrix is a NEW object (load_matrix is not
+        mutated); mutate freely.
+
+    Backward compat: passing age=None returns the same shape as load_matrix().
+    """
+    from .age_scaling import drop_age_gated_products, is_kid
+
+    matrix = load_matrix(repo_path)
+    if not is_kid(age):
+        return matrix
+
+    # Build a NEW Matrix; do not mutate the source.
+    new_buckets: dict[str, SupplementBucket] = {}
+    for bucket_id, bucket in matrix.buckets.items():
+        kept, warnings = drop_age_gated_products(bucket.products, age)
+        new_bucket = SupplementBucket(
+            bucket_id=bucket.bucket_id,
+            label=bucket.label,
+            oxidation=bucket.oxidation,
+            na_k_band=bucket.na_k_band,
+            products=kept,
+            description=bucket.description,
+            references=list(bucket.references),
+            age_warnings=warnings,
+        )
+        new_buckets[bucket_id] = new_bucket
+
+    return Matrix(
+        buckets=new_buckets,
+        overrides=list(matrix.overrides),
+        patterns=dict(matrix.patterns),
+        repo_path=matrix.repo_path,
+    )

@@ -23,6 +23,7 @@ SCHEMAS = {
     "supplements": json.loads((SCHEMA_DIR / "bucket.schema.json").read_text()),
     "patterns": json.loads((SCHEMA_DIR / "pattern.schema.json").read_text()),
     "overrides": json.loads((SCHEMA_DIR / "override.schema.json").read_text()),
+    "age_scaling": json.loads((SCHEMA_DIR / "age_scaling.schema.json").read_text()),
 }
 
 
@@ -35,6 +36,8 @@ def _classify_yaml(yaml_path: Path) -> str:
         return "overrides"
     if "patterns" in parts:
         return "patterns"
+    if "age_scaling" in parts:
+        return "age_scaling"
     raise ValueError(f"Cannot classify YAML: {yaml_path}")
 
 
