@@ -14,6 +14,8 @@
         "slow_low_nak",
         "fast_high_nak",
         "fast_low_nak",
+        "three_lows_high_nak",
+        "three_lows_low_nak",
         "four_lows_high_nak",
         "four_lows_low_nak"
       ]
@@ -24,13 +26,27 @@
     },
     "oxidation": {
       "type": "string",
-      "enum": ["slow", "fast", "mixed", "four_lows"]
+      "enum": ["slow", "fast", "mixed", "three_lows", "four_lows"]
     },
     "na_k_band": {
       "type": "string",
       "enum": ["above_2.5", "below_2.5"]
     },
     "description": {"type": "string"},
+    "adult_dose_overrides": {
+      "type": "object",
+      "description": "Per-product Adult (am·noon·pm) overrides for this bucket. Each value is {am, noon, pm} dose strings. Products not listed fall through to matrix/standard_protocols.yml.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["am", "noon", "pm"],
+        "additionalProperties": false,
+        "properties": {
+          "am": {"type": "string"},
+          "noon": {"type": "string"},
+          "pm": {"type": "string"}
+        }
+      }
+    },
     "products": {
       "type": "array",
       "minItems": 1,

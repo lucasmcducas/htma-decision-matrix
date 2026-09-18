@@ -3,45 +3,58 @@ label: "Four Lows + Low Na/K"
 oxidation: four_lows
 na_k_band: below_2.5
 description: |
-  Four lows pattern (Ca < 40, Mg < 6, Na < 25, K < 10 mg% — ALL four) combined with Na/K
-  below 2.5. Wilson's most serious chronic-stress configuration; with Na/K < 1 he calls it
-  the "very ill" pattern, and a step-down visual on top of it is a death-wish pattern.
-  Program intent: maximally gentle rebuild plus restoration of electrical potential. Same
-  contraindications as bucket 5 — no adrenal glandulars, no B-complex, no vitamin C or E,
-  no isolated potassium, no thyroid hormones.
+  Four lows pattern (Ca < 40, Mg < 6, Na < 25, K < 10 mg% — ALL four) with Na/K below 2.5.
+  Same as bucket 5 (4-Lows + High Na/K) but with Na/K below 2.5 — the most depleted
+  presentation. Wilson treats four lows as a separate metabolic type, evaluated before
+  the oxidation rate. The program intent is the most cautious rebuild in the matrix —
+  gentle, nourishing, no stimulation. Same contraindications as bucket 5 — no adrenal
+  glandulars, no B-complex, no vitamin C or E, no isolated potassium, no thyroid hormones.
+# Per-product Adult dose overrides for this bucket. cal-mag-fusion is
+# bumped to 7 caps / 7 caps / 7 caps per Luke 2026-09-12 (true 4-Lows
+# adults need the highest Ca/Mg backbone). Kid cells still apply
+# age scaling on top.
+adult_dose_overrides:
+  cal-mag-fusion:
+    am: "7 caps"
+    noon: "7 caps"
+    pm: "7 caps"
 products:
   - id: cal-mag-fusion
     role: calcium_magnesium
     dose_modifier: standard
-    notes: "Gentle bioavailable Ca/Mg to rebuild the depleted macromineral base."
+    notes: |
+      Adult 7·7·7 (per Luke 2026-09-12). True 4-Lows is the most
+      depleted presentation and needs the highest Ca/Mg backbone.
+      See adult_dose_overrides above for the bucket-level override.
+      Kid scaling applies on top per the standard age factor.
   - id: na-k-up
-    role: sodium_potassium_support
+    role: na_k_support
     dose_schedule:
       type: linear
       metric: na_k
       anchors:
-        - { na_k_max: 1.0, dose: { am: "2 caps", noon: "2 caps", pm: "2 caps" } }
-        - { na_k_max: 1.5, dose: { am: "2 caps", noon: "1 cap",  pm: "2 caps" } }
-        - { na_k_max: 1.75, dose: { am: "1 cap", noon: "1 cap", pm: "1 cap" } }
-        - { na_k_max: 1.85, dose: { am: "1 cap", noon: "1 cap", pm: "0" } }
-        - { na_k_max: 1.99, dose: { am: "1 cap", noon: "1 cap", pm: "0" } }
-        - { na_k_max: 2.0, dose: { am: "1 cap",  noon: "0",     pm: "0" } }
-        - { na_k_max: null, dose: { am: "0",    noon: "0",      pm: "0" } }
+        - { na_k_max: 1.0,  dose: { am: "2 caps", noon: "2 caps", pm: "2 caps" } }
+        - { na_k_max: 1.5,  dose: { am: "2 caps", noon: "1 cap",  pm: "2 caps" } }
+        - { na_k_max: 1.75, dose: { am: "1 cap",  noon: "1 cap",  pm: "1 cap" } }
+        - { na_k_max: 1.85, dose: { am: "1 cap",  noon: "1 cap",  pm: "0" } }
+        - { na_k_max: 1.99, dose: { am: "1 cap",  noon: "1 cap",  pm: "0" } }
+        - { na_k_max: 2.0,  dose: { am: "1 cap",  noon: "0",      pm: "0" } }
+        - { na_k_max: null, dose: { am: "0",     noon: "0",      pm: "0" } }
     notes: |
-      Na/K Up dose scales linearly with Na/K ratio per locked rule (added 2026-09-08).
-      At Na/K<=1.0: 2-2-2 ceiling. At Na/K=2.0: 1-0-0 lighter end. Above Na/K=2.0,
-      Na/K Up is not indicated (Zinc Matrix Pro takes over in the high-Na/K buckets).
-      Replaces previous flat "standard" dose. The Valence equivalent of LimComin.
-      SUBSTITUTES for Zinc Matrix Pro — never both in the same protocol.
+      Na/K Up dose ladder for the low-Na/K four-lows bucket. Anchors at
+      Na/K=1.0, 1.5, 1.75, 1.85, 1.99, 2.0, and ceiling. Same ladder as
+      slow-ox and fast-ox low-Na/K buckets. Ceiling dose is 0·0·0
+      because four-lows patients can't tolerate Na/K Up stimulation.
   - id: kelp-max
     role: thyroid_iodine
     dose_modifier: standard
-    notes: "Trace-mineral/iodine nourishment, NOT thyroid stimulation."
+    notes: |
+      Iodine/trace-mineral nourishment, NOT thyroid stimulation — a glandular or hormone
+      would be contraindicated in four lows.
   - id: cell-restore
     role: methylation
     dose_modifier: standard
-    notes: "Universal methylation support — present in all 6 buckets."
-
+    notes: "Universal methylation support — present in all buckets."
   - id: red-pilled-sockeye
     role: fish_oil_essential_fatty_acids
     dose_modifier: standard
@@ -64,7 +77,6 @@ products:
       Added 2026-09-08.
 references:
   - "drlwilson.com/articles/FOUR%20LOWS.htm"
-  - "drlwilson.com/Articles/DEATH%20PATTERNS.htm (four lows + Na/K < 1 = 'very ill' pattern)"
-  - "drlwilson.com/articles/LOW%20SODIUM%20POTASSIUM%20RATIO.htm"
+  - "drlwilson.com/Articles/HA%20INTRO.htm (four lows evaluated before oxidation rate)"
   - "htma-course-version-two/.../oxidation-types-fast-slow-mixed-four-lows.ts"
   - "htma_app_bridge/syncers/protocols.py (canonical Valence product IDs)"

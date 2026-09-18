@@ -54,6 +54,13 @@ class SupplementBucket:
     # Populated by load_matrix_for_age() when products are dropped
     # due to age gates. Empty for the adult path.
     age_warnings: list[str] = field(default_factory=list)
+    # Per-product Adult dose overrides for this bucket. Maps
+    # product_id -> {am, noon, pm}. Products not listed fall through
+    # to matrix/standard_protocols.yml.
+    # Used to bake Luke's clinical-practice doses (e.g. cal-mag-fusion
+    # 7·7·7 for true 4-Lows) into the bucket YAML so fresh viewer
+    # sessions open with the right defaults.
+    adult_dose_overrides: dict[str, dict[str, str]] = field(default_factory=dict)
 
 
 @dataclass
@@ -138,6 +145,7 @@ class Matrix:
                 products=products,
                 description=data.get("description", ""),
                 references=data.get("references", []),
+                adult_dose_overrides=data.get("adult_dose_overrides", {}) or {},
             )
 
         # Overrides — files matching *override*.yml that aren't buckets

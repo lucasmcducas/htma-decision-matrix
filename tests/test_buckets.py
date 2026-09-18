@@ -27,6 +27,7 @@ LOW_NAK_BUCKETS = [
     SUPPLEMENTS_DIR / "bucket_2_slow_low_nak.yml",
     SUPPLEMENTS_DIR / "bucket_4_fast_low_nak.yml",
     SUPPLEMENTS_DIR / "bucket_6_four_lows_low_nak.yml",
+    SUPPLEMENTS_DIR / "bucket_8_three_lows_low_nak.yml",
 ]
 
 ALL_BUCKETS = sorted(SUPPLEMENTS_DIR.glob("bucket_*.yml"))
@@ -227,12 +228,16 @@ def test_fixture_classifies_to_expected_bucket(fixture_path: Path) -> None:
 
 
 def test_six_buckets_exist() -> None:
-    """Rule 1: exactly 6 supplement buckets."""
+    """Rule 1: exactly 8 supplement buckets (4-Lows × 2 + 3-Lows × 2 + slow × 2 + fast × 2).
+
+    8 buckets as of 2026-09-12 (added 3-Lows hybrid per Luke).
+    """
     buckets = sorted(SUPPLEMENTS_DIR.glob("bucket_*.yml"))
-    assert len(buckets) == 6, f"Expected 6 buckets, found {len(buckets)}"
+    assert len(buckets) == 8, f"Expected 8 buckets, found {len(buckets)}"
     expected_ids = {
         "slow_high_nak", "slow_low_nak",
         "fast_high_nak", "fast_low_nak",
+        "three_lows_high_nak", "three_lows_low_nak",
         "four_lows_high_nak", "four_lows_low_nak",
     }
     found_ids = {yaml.safe_load(b.read_text())["bucket_id"] for b in buckets}

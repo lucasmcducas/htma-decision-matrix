@@ -1,0 +1,84 @@
+bucket_id: three_lows_low_nak
+label: "Three Lows + Low Na/K"
+oxidation: three_lows
+na_k_band: below_2.5
+description: |
+  Three-lows hybrid pattern (any 3 of {Ca < 40, Mg < 6, Na < 25, K < 10}
+  below threshold) with Na/K below 2.5. Per Luke 2026-09-12: same shape
+  as the High Na/K version but zinc-matrix-pro replaced by Na/K Up.
+# Per-product Adult dose overrides for this bucket (per Luke 2026-09-12):
+# cal-mag-fusion 4·4·4 (between slow-ox 2·2·2 and true 4-Lows 7·7·7).
+# slowox + thyro-spark 1·0·0 (small morning drivers). No adrenofuel.
+adult_dose_overrides:
+  cal-mag-fusion:
+    am: "4 caps"
+    noon: "4 caps"
+    pm: "4 caps"
+  slowox:
+    am: "1 cap"
+    noon: "0"
+    pm: "0"
+  thyro-spark:
+    am: "1 cap"
+    noon: "0"
+    pm: "0"
+products:
+  - id: cal-mag-fusion
+    role: calcium_magnesium
+    dose_modifier: standard
+    notes: |
+      Adult 4·4·4 (per Luke 2026-09-12). 3-Lows with low Na/K is the
+      most common presentation (Ca+Mg low, K low, Na low).
+  - id: slowox
+    role: slow_oxidation_support
+    dose_modifier: standard
+    notes: |
+      Adult 1·0·0 (1 cap AM only). Small morning driver.
+  - id: thyro-spark
+    role: thyroid_spark
+    dose_modifier: standard
+    notes: |
+      Adult 1·0·0 (1 cap AM). Paired with slowox. No adrenofuel.
+  - id: na-k-up
+    role: na_k_support
+    dose_schedule:
+      type: linear
+      metric: na_k
+      anchors:
+        - { na_k_max: 1.0,  dose: { am: "2 caps", noon: "2 caps", pm: "2 caps" } }
+        - { na_k_max: 1.5,  dose: { am: "2 caps", noon: "1 cap",  pm: "2 caps" } }
+        - { na_k_max: 1.75, dose: { am: "1 cap",  noon: "1 cap",  pm: "1 cap" } }
+        - { na_k_max: 1.85, dose: { am: "1 cap",  noon: "1 cap",  pm: "0" } }
+        - { na_k_max: 1.99, dose: { am: "1 cap",  noon: "1 cap",  pm: "0" } }
+        - { na_k_max: 2.0,  dose: { am: "1 cap",  noon: "0",      pm: "0" } }
+        - { na_k_max: null, dose: { am: "0",     noon: "0",      pm: "0" } }
+    notes: |
+      Na/K Up dose ladder — anchors at Na/K ratios 1.0, 1.5, 1.75,
+      1.85, 1.99, 2.0, and ceiling. Same ladder as the low-Na/K
+      slow-ox and 4-Lows buckets.
+  - id: cell-restore
+    role: methylation
+    dose_modifier: standard
+    notes: "Universal methylation support — present in all buckets."
+  - id: red-pilled-sockeye
+    role: fish_oil_essential_fatty_acids
+    dose_modifier: standard
+    notes: "Fish oil — universal across all buckets."
+  - id: valence-se
+    role: selenium_antioxidant
+    dose_modifier: standard
+    notes: "Selenium — universal (optional per practitioner)."
+  - id: kidney-flow
+    role: kidney_support
+    dose_modifier: standard
+    notes: "Kidney support — universal (optional per practitioner)."
+  - id: kelp-max
+    role: thyroid_iodine
+    dose_modifier: standard
+    notes: |
+      Iodine/trace-mineral nourishment, NOT thyroid stimulation.
+      Universal across all buckets.
+references:
+  - "drlwilson.com/articles/FOUR%20LOWS.htm (3-Lows as intermediate)"
+  - "drlwilson.com/Articles/HA%20INTRO.htm (oxidation evaluation)"
+  - "htma-app-bridge/syncers/protocols.py (canonical Valence product IDs)"

@@ -22,7 +22,7 @@ def test_build_data_has_top_level_shape():
     assert "buckets" in data
     assert isinstance(data["ages"], list)
     assert isinstance(data["buckets"], list)
-    assert len(data["buckets"]) == 6
+    assert len(data["buckets"]) == 8  # 6 buckets + 2 3-Lows hybrid buckets
 
 
 def test_ages_list_matches_v1_viewer():
@@ -39,6 +39,8 @@ def test_all_buckets_have_expected_names():
         "Slow + Low Na/K",
         "Fast + High Na/K",
         "Fast + Low Na/K",
+        "3-Lows + High Na/K",
+        "3-Lows + Low Na/K",
         "4-Lows + High Na/K",
         "4-Lows + Low Na/K",
     ]

@@ -10,11 +10,24 @@ description: |
   nourishing, no stimulation. Wilson explicitly warns AGAINST adrenal glandulars,
   B-complex, vitamin C, vitamin E, isolated potassium, and thyroid hormones here, which is
   why no adrenal or slow-ox driver appears in this list.
+# Per-product Adult dose overrides for this bucket. cal-mag-fusion is
+# bumped to 7 caps / 7 caps / 7 caps per Luke 2026-09-12 (true 4-Lows
+# adults need the highest Ca/Mg backbone — much higher than the slow-ox
+# default of 2·2·2). Kid cells still apply age scaling on top.
+adult_dose_overrides:
+  cal-mag-fusion:
+    am: "7 caps"
+    noon: "7 caps"
+    pm: "7 caps"
 products:
   - id: cal-mag-fusion
     role: calcium_magnesium
     dose_modifier: standard
-    notes: "Gentle bioavailable Ca/Mg to rebuild the depleted macromineral base."
+    notes: |
+      Adult 7·7·7 (per Luke 2026-09-12). True 4-Lows is the most
+      depleted presentation and needs the highest Ca/Mg backbone.
+      See adult_dose_overrides above for the bucket-level override.
+      Kid scaling applies on top per the standard age factor.
   - id: zinc-matrix-pro
     role: zinc
     dose_schedule:

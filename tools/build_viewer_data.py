@@ -54,20 +54,34 @@ BUCKET_DISPLAY = {
     "slow_low_nak": "Slow + Low Na/K",
     "fast_high_nak": "Fast + High Na/K",
     "fast_low_nak": "Fast + Low Na/K",
+    "three_lows_high_nak": "3-Lows + High Na/K",
+    "three_lows_low_nak": "3-Lows + Low Na/K",
     "four_lows_high_nak": "4-Lows + High Na/K",
     "four_lows_low_nak": "4-Lows + Low Na/K",
 }
 
 
-def _adult_dose_for(product_id: str) -> tuple[str, str, str]:
+def _adult_dose_for(
+    product_id: str,
+    bucket_overrides: dict[str, dict[str, str]] | None = None,
+) -> tuple[str, str, str]:
     """Resolve the adult (am, noon, pm) for a product.
 
     Priority:
-      1. zinc-matrix-pro and na-k-up use their starting anchor (Na/K=2.5)
+      1. Bucket-level adult_dose_overrides (per-bucket YAML).
+      2. zinc-matrix-pro and na-k-up use their starting anchor (Na/K=2.5)
          for display purposes (matches the viewer's "default" view).
-      2. Standard protocols table.
-      3. Empty triple (caller can decide how to handle).
+      3. Standard protocols table.
+      4. Empty triple (caller can decide how to handle).
+
+    Args:
+        product_id: one of the 17 Valence product IDs.
+        bucket_overrides: dict from SupplementBucket.adult_dose_overrides.
+                          Empty dict or None means fall through to standard.
     """
+    if bucket_overrides and product_id in bucket_overrides:
+        ov = bucket_overrides[product_id]
+        return (ov.get("am", "0"), ov.get("noon", "0"), ov.get("pm", "0"))
     if product_id in ("zinc-matrix-pro", "na-k-up"):
         # Use the first anchor's dose as the displayed "adult" — matches
         # the v1 viewer's behaviour where the anchor at Na/K=2.5 was shown.
@@ -75,58 +89,18 @@ def _adult_dose_for(product_id: str) -> tuple[str, str, str]:
     return standard_protocols.get(product_id) or ("0", "0", "0")
 
 
-def _build_product_entry(product, age: int) -> dict:
-    """Build one product entry for the viewer's data.json.
-
-    Args:
-        product: a SupplementProduct
-        age: the age for this cell
-    """
-    am, noon, pm = _adult_dose_for(product.id)
-    adult_str = f"{am}·{noon}·{pm}"
-
-    # Compute the kid-scaled cell for this age.
-    if product.dose_schedule:
-        # NAK-driven: scale via kids_dose_at_nak with the default Na/K.
-        kid_am, _, kid_pm = age_scaling.kids_dose_at_nak(product.dose_schedule, age)
-        cell_str = f"{kid_am}·{kid_pm}"
-    else:
-        # Static: scale the standard protocol triple via kids_dose.
-        skew = age_scaling.calmag_skew_applies_to(product.id)
-        kid_am, _, kid_pm = age_scaling.kids_dose(am, noon, pm, age, calmag_skew=skew)
-        cell_str = f"{kid_am}·{kid_pm}"
-
-    entry: dict = {
-        "id": product.id,
-        "gate": age_scaling.age_gate_for(product.id),
-        "adult": adult_str,
-        "cells": [cell_str],  # single cell per age; viewer expands into the age grid
-    }
-    if product.dose_schedule:
-        entry["dose_schedule"] = product.dose_schedule
-    return entry
-
-
-def _build_bucket(bucket) -> dict:
-    """Build one bucket entry for the viewer's data.json."""
-    # Apply kid age-gating: drop products below their age gate.
-    # The viewer bakes age-gated products out of each cell.
-    return {
-        "name": BUCKET_DISPLAY[bucket.bucket_id],
-        "products": [
-            _build_product_entry(product, age=18)  # placeholder, age loop happens below
-            for product in bucket.products
-        ],
-    }
-
-
-def _build_product_entry_full_grid(product) -> dict:
+def _build_product_entry_full_grid(product, bucket_overrides=None) -> dict:
     """Build one product entry with one cell per age.
 
     The viewer's `cells` array is per-age. Adult dose is the same across
     ages (no Na/K scaling on the adult column). Kid dose is age-specific.
+
+    Args:
+        product: a SupplementProduct
+        bucket_overrides: dict from SupplementBucket.adult_dose_overrides.
+                         Empty dict or None means fall through to standard.
     """
-    am, noon, pm = _adult_dose_for(product.id)
+    am, noon, pm = _adult_dose_for(product.id, bucket_overrides)
     adult_str = f"{am}·{noon}·{pm}"
 
     cells: list[str] = []
@@ -158,19 +132,25 @@ def _build_bucket_full_grid(bucket) -> dict:
     """Build one bucket entry with full age grid."""
     return {
         "name": BUCKET_DISPLAY[bucket.bucket_id],
-        "products": [_build_product_entry_full_grid(p) for p in bucket.products],
+        "products": [
+            _build_product_entry_full_grid(p, bucket.adult_dose_overrides)
+            for p in bucket.products
+        ],
     }
 
 
 def build_data(repo_path: Path | None = None) -> dict:
     """Build the full data dict. Loads v2 matrix + standard protocols."""
     matrix = load_matrix_for_age(age=None, repo_path=repo_path)  # adult view; we scale per-age
+    # Iterate buckets in BUCKET_DISPLAY order so the viewer tabs appear
+    # in the clinically-meaningful sequence (slow → fast → 3-Lows → 4-Lows).
     return {
         "ages": AGES,
-        "buckets": [_build_bucket_full_grid(matrix.buckets[bid]) for bid in [
-            "slow_high_nak", "slow_low_nak", "fast_high_nak",
-            "fast_low_nak", "four_lows_high_nak", "four_lows_low_nak",
-        ]],
+        "buckets": [
+            _build_bucket_full_grid(matrix.buckets[bid])
+            for bid in BUCKET_DISPLAY.keys()
+            if bid in matrix.buckets
+        ],
     }
 
 
