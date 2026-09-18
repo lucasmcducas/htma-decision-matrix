@@ -1,0 +1,1517 @@
+{
+  "ages": [
+    18,
+    17,
+    15,
+    13,
+    12,
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1
+  ],
+  "buckets": [
+    {
+      "name": "Slow + High Na/K",
+      "products": [
+        {
+          "id": "slowox",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "adrenofuel",
+          "gate": 9,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "—",
+            "—",
+            "—",
+            "—",
+            "—",
+            "—",
+            "—",
+            "—"
+          ]
+        },
+        {
+          "id": "cal-mag-fusion",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "zinc-matrix-pro",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ],
+          "dose_schedule": {
+            "type": "linear",
+            "metric": "na_k",
+            "anchors": [
+              {
+                "na_k_max": 2.5,
+                "dose": {
+                  "am": "0",
+                  "noon": "0",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 4.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "0",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 6.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": null,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "2 caps"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "valence-d3-k2",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "bile-flow-plus",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "cell-restore",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "red-pilled-sockeye",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "valence-se",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kidney-flow",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kelp-max",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Slow + Low Na/K",
+      "products": [
+        {
+          "id": "slowox",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "adrenofuel",
+          "gate": 9,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "—",
+            "—",
+            "—",
+            "—",
+            "—",
+            "—",
+            "—",
+            "—"
+          ]
+        },
+        {
+          "id": "cal-mag-fusion",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "na-k-up",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0"
+          ],
+          "dose_schedule": {
+            "type": "linear",
+            "metric": "na_k",
+            "anchors": [
+              {
+                "na_k_max": 1.0,
+                "dose": {
+                  "am": "2 caps",
+                  "noon": "2 caps",
+                  "pm": "2 caps"
+                }
+              },
+              {
+                "na_k_max": 1.5,
+                "dose": {
+                  "am": "2 caps",
+                  "noon": "1 cap",
+                  "pm": "2 caps"
+                }
+              },
+              {
+                "na_k_max": 1.75,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 1.85,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": 1.99,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": 2.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "0",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": null,
+                "dose": {
+                  "am": "0",
+                  "noon": "0",
+                  "pm": "0"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "kelp-max",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "cell-restore",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "red-pilled-sockeye",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "valence-se",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kidney-flow",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fast + High Na/K",
+      "products": [
+        {
+          "id": "fast-oxidizer",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "cal-mag-fusion",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "zinc-matrix-pro",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ],
+          "dose_schedule": {
+            "type": "linear",
+            "metric": "na_k",
+            "anchors": [
+              {
+                "na_k_max": 2.5,
+                "dose": {
+                  "am": "0",
+                  "noon": "0",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 4.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "0",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 6.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": null,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "2 caps"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "nerv-calm",
+          "gate": null,
+          "adult": "0·0·0",
+          "cells": [
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "valence-d3-k2",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "cell-restore",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "red-pilled-sockeye",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "valence-se",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kidney-flow",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kelp-max",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fast + Low Na/K",
+      "products": [
+        {
+          "id": "fast-oxidizer",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "cal-mag-fusion",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "na-k-up",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0"
+          ],
+          "dose_schedule": {
+            "type": "linear",
+            "metric": "na_k",
+            "anchors": [
+              {
+                "na_k_max": 1.0,
+                "dose": {
+                  "am": "2 caps",
+                  "noon": "2 caps",
+                  "pm": "2 caps"
+                }
+              },
+              {
+                "na_k_max": 1.5,
+                "dose": {
+                  "am": "2 caps",
+                  "noon": "1 cap",
+                  "pm": "2 caps"
+                }
+              },
+              {
+                "na_k_max": 1.75,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 1.85,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": 1.99,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": 2.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "0",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": null,
+                "dose": {
+                  "am": "0",
+                  "noon": "0",
+                  "pm": "0"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "cell-restore",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "valence-fastcalm",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "red-pilled-sockeye",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "valence-se",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kidney-flow",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kelp-max",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4-Lows + High Na/K",
+      "products": [
+        {
+          "id": "cal-mag-fusion",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "zinc-matrix-pro",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ],
+          "dose_schedule": {
+            "type": "linear",
+            "metric": "na_k",
+            "anchors": [
+              {
+                "na_k_max": 2.5,
+                "dose": {
+                  "am": "0",
+                  "noon": "0",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 4.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "0",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 6.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": null,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "2 caps"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "kelp-max",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "cell-restore",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "red-pilled-sockeye",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "valence-se",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kidney-flow",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4-Lows + Low Na/K",
+      "products": [
+        {
+          "id": "cal-mag-fusion",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "na-k-up",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0",
+            "0·0"
+          ],
+          "dose_schedule": {
+            "type": "linear",
+            "metric": "na_k",
+            "anchors": [
+              {
+                "na_k_max": 1.0,
+                "dose": {
+                  "am": "2 caps",
+                  "noon": "2 caps",
+                  "pm": "2 caps"
+                }
+              },
+              {
+                "na_k_max": 1.5,
+                "dose": {
+                  "am": "2 caps",
+                  "noon": "1 cap",
+                  "pm": "2 caps"
+                }
+              },
+              {
+                "na_k_max": 1.75,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "1 cap"
+                }
+              },
+              {
+                "na_k_max": 1.85,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": 1.99,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "1 cap",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": 2.0,
+                "dose": {
+                  "am": "1 cap",
+                  "noon": "0",
+                  "pm": "0"
+                }
+              },
+              {
+                "na_k_max": null,
+                "dose": {
+                  "am": "0",
+                  "noon": "0",
+                  "pm": "0"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "kelp-max",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "cell-restore",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "red-pilled-sockeye",
+          "gate": null,
+          "adult": "0·0·1 cap",
+          "cells": [
+            "0·1 cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·½ cap",
+            "0·⅓ cap",
+            "0·⅓ cap",
+            "0·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        },
+        {
+          "id": "valence-se",
+          "gate": null,
+          "adult": "2 caps·2 caps·2 caps",
+          "cells": [
+            "2 caps·2 caps",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "0·0"
+          ]
+        },
+        {
+          "id": "kidney-flow",
+          "gate": null,
+          "adult": "1 cap·1 cap·1 cap",
+          "cells": [
+            "1 cap·1 cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "½ cap·½ cap",
+            "⅓ cap·⅓ cap",
+            "⅓ cap·⅓ cap",
+            "¼ cap·¼ cap",
+            "0·0",
+            "0·0"
+          ]
+        }
+      ]
+    }
+  ]
+}

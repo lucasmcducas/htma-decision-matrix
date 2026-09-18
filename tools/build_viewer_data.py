@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build /tmp/htma-matrix-viewer/public/data.json from the v2 matrix.
+"""Build the viewer data.json from the v2 matrix.
 
 Generates the viewer data file from:
   - matrix/supplements/bucket_*.yml  (adult doses + dose_schedule for NAK-driven products)
@@ -22,8 +22,8 @@ Output matches the viewer's expected shape:
     ]
   }
 
-Run from anywhere: `python3 build_viewer_data.py`. Writes to
-/tmp/htma-matrix-viewer/public/data.json by default.
+Run from anywhere: `python3 build_viewer_data.py`. Writes to the viewer
+repo's public/data.json by default. Pass --output to override.
 """
 from __future__ import annotations
 
@@ -179,8 +179,8 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("/tmp/htma-matrix-viewer/public/data.json"),
-        help="Where to write the JSON (default: /tmp/htma-matrix-viewer/public/data.json)",
+        default=Path(__file__).resolve().parent.parent / "viewer" / "public" / "data.json",
+        help="Where to write the JSON (default: viewer/public/data.json relative to the matrix repo)",
     )
     args = parser.parse_args()
     data = build_data()

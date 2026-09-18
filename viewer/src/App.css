@@ -1,0 +1,637 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  color: #e4e4e7;
+  background: #0a0a0c;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 100%;
+  padding: 24px 32px;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin: 0;
+  font-weight: 600;
+  color: #fafafa;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn {
+  padding: 8px 14px;
+  background: #27272a;
+  color: #fafafa;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: #3f3f46;
+  border-color: #52525b;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #2563eb;
+  border-color: #3b82f6;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.btn-primary.active {
+  background: #16a34a;
+  border-color: #22c55e;
+}
+
+.btn-danger {
+  background: #7c2d12;
+  border-color: #9a3412;
+  color: #fed7aa;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #9a3412;
+}
+
+/* Save button — green to draw the eye when active */
+.btn-save {
+  background: #14532d;
+  border-color: #16a34a;
+  color: #bbf7d0;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-save:hover:not(:disabled) {
+  background: #166534;
+  border-color: #22c55e;
+}
+
+/* Discard button — neutral, only enabled when dirty */
+.btn-discard {
+  background: #27272a;
+  border-color: #52525b;
+  color: #e4e4e7;
+}
+
+.btn-discard:hover:not(:disabled) {
+  background: #3f3f46;
+}
+
+/* Yellow dot inside Save button: hidden until there are unsaved changes */
+.unsaved-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.7);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.unsaved-dot.visible {
+  opacity: 1;
+}
+
+/* Sympathetic Dominance toggle (header) */
+.sd-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  background: #18181b;
+  color: #d4d4d8;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.sd-toggle:hover {
+  background: #27272a;
+  border-color: #52525b;
+}
+
+.sd-toggle.active {
+  background: #14532d;
+  border-color: #16a34a;
+  color: #bbf7d0;
+}
+
+.sd-toggle input[type="checkbox"] {
+  margin: 0;
+  accent-color: #22c55e;
+  cursor: pointer;
+}
+
+.sd-toggle-sub {
+  font-weight: 400;
+  font-size: 11px;
+  color: #a1a1aa;
+  margin-left: 2px;
+}
+
+.sd-toggle.active .sd-toggle-sub {
+  color: #86efac;
+}
+
+/* SD-swap row visual indicator */
+.sd-swap-row {
+  background: rgba(34, 197, 94, 0.06);
+}
+
+.sd-swap-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  background: #16a34a;
+  color: #f0fdf4;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+/* Na/K ratio slider (header) */
+.nak-slider {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  color: #d4d4d8;
+  font-size: 13px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.nak-slider:hover {
+  background: #27272a;
+  border-color: #52525b;
+}
+
+.nak-slider input[type="range"] {
+  width: 140px;
+  cursor: pointer;
+  accent-color: #3b82f6;
+}
+
+.nak-slider-label {
+  color: #a1a1aa;
+}
+
+.nak-slider-value {
+  font-variant-numeric: tabular-nums;
+  color: #fafafa;
+  min-width: 36px;
+  text-align: right;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #a1a1aa;
+  margin: 0 0 16px 0;
+}
+
+.flash {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #16a34a;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  animation: fadeOut 2s ease forwards;
+}
+
+@keyframes fadeOut {
+  0%, 70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.override-banner {
+  padding: 8px 12px;
+  background: #1e3a8a;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #dbeafe;
+  margin-bottom: 12px;
+}
+
+/* Prominent yellow banner for unsaved drafts */
+.unsaved-banner {
+  padding: 10px 14px;
+  background: #422006;
+  border: 1px solid #f59e0b;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #fef3c7;
+  margin-bottom: 12px;
+}
+
+.unsaved-banner em {
+  font-style: normal;
+  font-weight: 600;
+  color: #fde68a;
+}
+
+.unsaved-banner strong {
+  color: #fcd34d;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #a1a1aa;
+}
+
+.swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid #27272a;
+}
+
+.bucket-nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #27272a;
+  padding-bottom: 0;
+  overflow-x: auto;
+}
+
+.bucket-tab {
+  padding: 10px 16px;
+  background: transparent;
+  color: #a1a1aa;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.bucket-tab:hover {
+  color: #fafafa;
+  background: #18181b;
+}
+
+.bucket-tab.active {
+  color: #fafafa;
+  border-bottom-color: #3b82f6;
+}
+
+.matrix {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+
+.bucket-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: #fafafa;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+.matrix-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+  table-layout: fixed;
+}
+
+.matrix-table thead th {
+  position: sticky;
+  top: 0;
+  background: #0f0f12;
+  padding: 8px 10px;
+  font-weight: 600;
+  color: #d4d4d8;
+  border-bottom: 1px solid #27272a;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.matrix-table thead th.product-col {
+  text-align: left;
+  width: 200px;
+  min-width: 200px;
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  background: #0f0f12;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.matrix-table thead th.adult-col {
+  position: sticky;
+  left: 200px;
+  z-index: 5;
+  background: #0f0f12;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.5);
+  width: 200px;
+  min-width: 200px;
+}
+
+.matrix-table tbody td.product-cell {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #18181b;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.5);
+  width: 200px;
+  min-width: 200px;
+}
+
+.matrix-table tbody td.adult-cell {
+  position: sticky;
+  left: 200px;
+  z-index: 2;
+  background: #18181b;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.5);
+  width: 200px;
+  min-width: 200px;
+}
+
+.matrix-table thead th.age-col {
+  width: 96px;
+  min-width: 96px;
+}
+
+.matrix-table thead th.age-adult {
+  color: #3b82f6;
+}
+
+.matrix-table tbody td {
+  padding: 4px;
+  border-bottom: 1px solid #1f1f23;
+  text-align: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.matrix-table tbody tr:hover {
+  background: #1c1c20;
+}
+
+.product-cell {
+  text-align: left !important;
+  padding: 8px 10px !important;
+  font-weight: 500;
+}
+
+.product-cell code {
+  background: #27272a;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  color: #fafafa;
+}
+
+.gate-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  background: #7c2d12;
+  color: #fed7aa;
+  font-size: 10px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.adult-cell {
+  color: #71717a;
+  font-size: 11px;
+  padding: 8px 10px !important;
+}
+.adult-cell.has-override {
+  /* Match dose-cell override styling — orange inset ring. */
+  box-shadow: inset 0 0 0 2px #f59e0b;
+}
+.adult-cell.editable {
+  /* When in edit mode, the Adult cell is a live input cell. */
+  background: #1a1a1f;
+}
+
+.dose-cell {
+  border-radius: 3px;
+  font-weight: 500;
+  position: relative;
+}
+
+.dose-cell.has-override {
+  box-shadow: inset 0 0 0 2px #f59e0b;
+}
+
+/* Shared override (zinc + na-k-up) — applies across multiple buckets.
+ * Stronger border + small badge to indicate cross-bucket behavior. */
+.dose-cell.shared-override {
+  box-shadow: inset 0 0 0 3px #f97316;
+}
+
+.dose-cell.shared-override::after {
+  content: "↔";
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  font-size: 9px;
+  color: #fb923c;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.dose-cell.editable {
+  cursor: pointer;
+}
+
+.dose-cell.editable:hover {
+  outline: 1px dashed #fafafa;
+  outline-offset: -2px;
+}
+
+.dose-cell.cell-active {
+  box-shadow: inset 0 0 0 2px #3b82f6;
+}
+
+.cell-editor {
+  position: relative;
+  display: inline-block;
+}
+
+.cell-input {
+  width: 76px;
+  padding: 4px 6px;
+  background: #0f0f12;
+  color: #fafafa;
+  border: 1px solid #3f3f46;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+  font-family: inherit;
+}
+.cell-input.adult-input {
+  /* Adult dose is 3-slot (am·noon·pm) — needs more horizontal space. */
+  width: 110px;
+}
+
+.cell-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.dose-picker {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: #0f0f12;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  min-width: 380px;
+}
+
+.dose-chip {
+  padding: 6px 10px;
+  background: #27272a;
+  color: #fafafa;
+  border: 1px solid #3f3f46;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  transition: all 0.1s ease;
+}
+
+.dose-chip:hover {
+  background: #3b82f6;
+  border-color: #60a5fa;
+}
+
+.dose-empty {
+  color: #52525b;
+}
+
+.dose-zero {
+  color: #3f3f46;
+  background: transparent;
+}
+
+.dose-quarter {
+  background: #1e1b4b;
+  color: #c4b5fd;
+}
+
+.dose-half {
+  background: #312e81;
+  color: #c7d2fe;
+}
+
+.dose-one {
+  background: #1e40af;
+  color: #dbeafe;
+}
+
+.dose-two {
+  background: #1d4ed8;
+  color: #eff6ff;
+}
+
+.dose-heavy {
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #27272a;
+  font-size: 12px;
+  color: #71717a;
+}
+
+.footer p {
+  margin: 4px 0;
+}
+
+.footer-hint {
+  color: #a1a1aa;
+  font-style: italic;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #a1a1aa;
+  font-size: 14px;
+}
