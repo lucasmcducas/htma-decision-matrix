@@ -131,6 +131,7 @@ def _build_product_entry_full_grid(product, bucket_overrides=None) -> dict:
 def _build_bucket_full_grid(bucket) -> dict:
     """Build one bucket entry with full age grid."""
     return {
+        "id": bucket.bucket_id,
         "name": BUCKET_DISPLAY[bucket.bucket_id],
         "products": [
             _build_product_entry_full_grid(p, bucket.adult_dose_overrides)
