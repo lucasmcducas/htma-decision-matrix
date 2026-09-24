@@ -80,3 +80,40 @@ values — see `docs/decisions/0001-mineral-units.md`.
 - Locked rules / synthesis: `~/.hermes/plans/2026-09-08_133000-synthesis-for-luke.md`
 - Existing Dart engine (threshold parity): `htma_labs/lib/core/wilson/pattern_detector.dart`
 - Canonical Valence product IDs: `htma_app_bridge/syncers/protocols.py`
+
+## Status
+
+Active development. **Primary branch: `v2/kids-age-scaling`** — Phase 2
+adds per-slot dose scaling + standard protocols. The legacy `master`
+branch reflects the v1 (adult-only) matrix; `v2/kids-age-scaling`
+supersedes it.
+
+Last shipped: 2026-09-08 (zinc anchor ladder revision, Na/K=1.85 anchor,
+kid age-scaling lifted from `lab_pipeline`).
+
+## Sister repos (HTMA Pro stack)
+
+- [`lucasmcducas/htma_mobile`][htma_mobile] — Flutter consumer app
+  (parent + kid) that consumes the matrix + supplement buckets
+- [`lucasmcducas/htma_parent`][htma_parent] — parent-focused variant
+- [`lucasmcducas/ai-workspace-backup`][aiws] — contains `lab_pipeline`
+  (interpreter that loads this YAML at runtime) and `htma_app_bridge`
+  (OCR + DB sync)
+- [`lucasmcducas/memory-ai-codebase-patterns`][maicbp] — AI coding
+  patterns wiki (poteto/pstack)
+
+[htma_mobile]: https://github.com/lucasmcducas/htma_mobile
+[htma_parent]: https://github.com/lucasmcducas/htma_parent
+[aiws]: https://github.com/lucasmcducas/ai-workspace-backup
+[maicbp]: https://github.com/lucasmcducas/memory-ai-codebase-patterns
+
+## Editing rules
+
+YAML is the source of truth. To change a threshold, dose, or piece of
+prose:
+
+1. Edit the YAML
+2. `pytest tests/ -v` (must pass)
+3. Open a PR
+4. Once merged, run `lab_pipeline/tests/data/test_build_data.py` to
+   rebuild the consumer app's `data.json` snapshot
