@@ -1,0 +1,106 @@
+# HTMA Kids Matrix v2 — Age-Scaling Rules
+#
+# All rules lifted from lab_pipeline/interpreter/kids_dosing.py
+# (HTMA Kids Matrix v1, 2026-09-08). Lifted into this repo so the matrix
+# becomes the single source of truth for both adult and kid protocols.
+#
+# Locked rules (per Luke 2026-09-08, carried forward to v2):
+#   1. Adults (>= adult_threshold): 3x/day (AM / NOON / PM) — unchanged.
+#   2. Kids (< adult_threshold): 2x/day (AM + PM only). NOON slot dropped;
+#      any NOON dose merges into PM via MAX(NOON, PM).
+#   3. Age scaling: linear interpolation between anchor points.
+#   4. Fraction rounding: FLOOR semantics — never exceed the computed value.
+#   5. Cal-Mag Fusion skew: multiply adult dose by `calmag_skew.factor`
+#      BEFORE age scaling. Clark gives kids more Cal-Mag relative to
+#      other supplements for their size.
+#   6. CellRestore: universal — no age gate (handled by bucket YAML, not here).
+#   7. AdrenoFuel: age gate `age_gates.products.adrenofuel`.
+#   8. ThyroSpark: age gate `age_gates.products.thyro-spark`.
+#   9. NOON handling: MAX(NOON, PM) merges noon dose into PM for kids.
+#  10. Age is OPTIONAL on the panel — when None, the adult path runs.
+#
+# Schema for this file lives in schemas/age_scaling.schema.json
+# (added in v2). YAML shape is consumed by htma_decision_matrix/age_scaling.py.
+
+version: "2.0.0"
+description: |
+  Age-scaling rules for HTMA Kids Matrix v2. Lifted from lab_pipeline's
+  kids_dosing.py (2026-09-08, locked rules 1-10) so the matrix repo owns
+  both adult and kid protocol data.
+
+anchor_curve:
+  description: |
+    (age, factor) anchor pairs. Linear interpolation between anchors.
+    Anchors are inclusive on both ends so boundary ages return exact values.
+  points:
+    - { age: 0,  factor: 0.0 }
+    - { age: 6,  factor: 0.5 }
+    - { age: 12, factor: 0.75 }
+    - { age: 18, factor: 1.0 }
+  adult_threshold: 19
+  newborn_threshold: 0
+
+fraction_ladder:
+  description: |
+    FLOOR semantics — never exceed the computed value.
+    Check smallest threshold first; first match wins.
+    The 1/3 threshold is implemented as `n < 1/3` (the float value) so the
+    boundary math is consistent at 0.33 exactly.
+  thresholds:
+    - { if_below: 0.125, floor_to: 0 }       # drop entirely
+    - { if_below: 0.333, floor_to: "¼" }      # nearest 1/4 (math: 1.0/3)
+    - { if_below: 0.5,   floor_to: "⅓" }      # nearest 1/3
+    - { if_below: 1.0,   floor_to: "½" }      # nearest 1/2
+    - { if_below: null,  floor_to: 1 }        # else whole cap
+
+age_gates:
+  description: |
+    Per-product minimum age. Products without an entry pass through.
+    Kids below the gate are dropped from their protocol entirely.
+  products:
+    adrenofuel: 9
+    thyro-spark: 5
+
+calmag_skew:
+  description: |
+    Multiply adult dose by this factor BEFORE age scaling, for the
+    products in `applies_to` only. Carried forward from v1 rule 5.
+  factor: 1.25
+  applies_to:
+    - cal-mag-fusion
+
+noon_handling:
+  description: |
+    For kids, the NOON slot is dropped from the rendered protocol.
+    NOON dose merges into PM via MAX(NOON, PM). The output format
+    always shows "0" for the NOON slot on kid reports.
+  merge_rule: max
+
+dosing_schedule:
+  description: |
+    Adult path: 3 slots/day (AM/NOON/PM).
+    Kid path: 2 slots/day (AM/PM only, NOON = "0").
+  adult_slots: [am, noon, pm]
+  kid_slots: [am, pm]
+
+fraction_symbols:
+  description: |
+    Unicode fraction glyphs and their float values. Used by
+    parse_caps() and format_kid_caps(). Values are stored as exact
+    fractions (not rounded) so the math at boundaries like 0.33 is
+    consistent. See kids_dosing.py comment in v1 for the floating-point
+    rationale.
+  map:
+    "¼": 0.25
+    "⅓": !!float 0.3333333333333333
+    "½": 0.5
+    "⅔": !!float 0.6666666666666666
+    "¾": 0.75
+
+dose_string_parsing:
+  description: |
+    How to interpret dose strings from the matrix. Mirrors v1 behavior.
+  zero_values: ["0", ""]
+  cap_word_singular: "cap"
+  cap_word_plural: "caps"
+  mixed_number_pattern: "digit followed by fraction symbol"
