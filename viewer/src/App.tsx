@@ -395,6 +395,16 @@ function App() {
   const [nakRatio, setNakRatio] = useState<number>(2.5)  // Na/K ratio dial (0.5-8.0)
   const inputsRef = useRef<Record<string, HTMLInputElement | null>>({})
 
+  // Issue #3 (Debug Thread 1, 2026-09-24): track whether the user has
+  // touched overrides SINCE the most recent load completed. If yes, do
+  // NOT overwrite their edits when the (slow) localStorage hydration
+  // finally returns. Without this guard the load effect's
+  // setOverrides(migrateOverrides(...)) silently wipes whatever the
+  // user typed in the interval between page open and localStorage
+  // read completion (typically <1ms but happens on slow tabs / Safari
+  // private mode).
+  const userTouchedRef = useRef(false)
+
   // Load base matrix
   useEffect(() => {
     fetch('/data.json')
@@ -430,6 +440,11 @@ function App() {
   // render incorrectly against the v2 cells. We DELIBERATELY use a
   // new STORAGE_KEY (v2) and purge any leftover v1 overrides on load,
   // so the viewer starts v2 with a clean slate.
+  //
+  // Issue #3 fix: race guard via userTouchedRef. localStorage.getItem
+  // is technically synchronous but the hydration is async; we record
+  // any user-setOverrides call between mount and load completion and
+  // refuse to overwrite if it's set.
   useEffect(() => {
     try {
       // One-shot purge of any leftover v1 overrides from the previous
@@ -449,12 +464,19 @@ function App() {
         for (const [k, v] of Object.entries(raw)) {
           normalized[k] = stripCap(v)
         }
-        setOverrides(migrateOverrides(normalized))
+        const migrated = migrateOverrides(normalized)
+        // Merge with any user edits that landed during the load window.
+        // User edits win per-key; only fill in keys the user hasn't
+        // touched. This is the safer-than-overwrite path for the
+        // race: even if there's a millisecond of overlap, the user's
+        // intentional edits are preserved.
+        setOverrides(prev => ({ ...migrated, ...prev }))
       }
     } catch (e) {
       console.warn('Failed to load overrides:', e)
     } finally {
       setLoaded(true)
+      userTouchedRef.current = false
     }
   }, [])
 
@@ -475,6 +497,9 @@ function App() {
     const key = productId
       ? overrideKey(bIdx, pIdx, aIdx, productId, nakRatio)
       : doseKey(bIdx, pIdx, aIdx)
+    // Issue #3 fix: any user edit must mark the localStorage-load-then-merge
+    // path as user-driven so the load effect doesn't overwrite on race.
+    userTouchedRef.current = true
     setOverrides(prev => {
       const next = { ...prev }
       // Empty string means "remove my override, restore auto-computed value"
@@ -502,6 +527,7 @@ function App() {
   // the row when the row has no per-age override.
   const updateAdultCell = useCallback((bIdx: number, pIdx: number, value: string) => {
     const key = `adult-${bIdx}-${pIdx}`
+    userTouchedRef.current = true
     setOverrides(prev => {
       const next = { ...prev }
       if (value === '') {
@@ -523,6 +549,9 @@ function App() {
 
   const resetAll = useCallback(() => {
     if (confirm('Clear all manual overrides and restore the auto-generated matrix?')) {
+      // Reset is a user-initiated write — mark touched so the load
+      // effect doesn't fall back to localStorage values mid-reset.
+      userTouchedRef.current = true
       setOverrides({})
     }
   }, [])
@@ -550,6 +579,8 @@ function App() {
       try {
         const text = await file.text()
         const parsed = JSON.parse(text)
+        // Import is also user-initiated — flag touched.
+        userTouchedRef.current = true
         setOverrides(parsed)
         setSavedFlash(true)
         setTimeout(() => setSavedFlash(false), 2000)
