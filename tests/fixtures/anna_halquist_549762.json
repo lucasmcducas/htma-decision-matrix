@@ -5,6 +5,7 @@
   "report_date": "2014-06-22",
   "sex": "female",
   "notes": "2014 ARL panel, female. Slow oxidation with low Na/K — Wilson's 'tired slow oxidizer.' Ca/Mg is in the normal 3.5-9.5 band, so the bowl pattern is NOT raised.",
+  "_fixture_warning_DO_NOT_MERGE_WITH_PDF_BYTES": "This JSON is a hand-crafted historical fixture for testing slow_low_nak classification. It is NOT derived from tests/e2e/fixtures/anna-halquist-549762.pdf (that PDF was replaced with Murphy Allen bytes from lab 743786 because ARL Central pruned Anna's real 2014 record). See tests/e2e/fixtures/README.md for the full story. The lab_pipeline/tests/fixtures/anna_halquist_549762_extracted.json file IS the Murphy Allen bytes — it just shares this filename because the harness uses the filename as a stable key.",
   "minerals": {
     "ca_ppm": 64.0,
     "mg_ppm": 9.0,
