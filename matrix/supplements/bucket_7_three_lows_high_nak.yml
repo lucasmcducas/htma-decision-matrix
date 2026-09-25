@@ -1,0 +1,90 @@
+bucket_id: three_lows_high_nak
+label: "Three Lows + High Na/K"
+oxidation: three_lows
+na_k_band: above_2.5
+description: |
+  Three-lows hybrid pattern (any 3 of {Ca < 40, Mg < 6, Na < 25, K < 10}
+  below threshold) with Na/K at or above 2.5. Per Luke 2026-09-12: sits
+  between slow-ox and true 4-Lows on the depletion spectrum — high
+  Ca/Mg backbone (4·4·4) to support the depleted macromineral base,
+  with small morning adrenal and thyroid drivers (1·0·0 each) for
+  patients who still have some adrenal/thyroid function. The drivers
+  are smaller than the slow-ox default (1·1·1) because a 3-Lows
+  patient is too depleted for full driver support, but not so
+  collapsed that we drop the drivers entirely (that's 4-Lows).
+# Per-product Adult dose overrides for this bucket (per Luke 2026-09-12):
+# cal-mag-fusion 4·4·4 (between slow-ox 2·2·2 and true 4-Lows 7·7·7).
+# slowox + thyro-spark 1·0·0 (small morning drivers, not the full slow-ox
+# 1·1·1 — 3-Lows patients are too depleted for full driver support).
+# No adrenofuel — too depleted for that support.
+adult_dose_overrides:
+  cal-mag-fusion:
+    am: "4 caps"
+    noon: "4 caps"
+    pm: "4 caps"
+  slowox:
+    am: "1 cap"
+    noon: "0"
+    pm: "0"
+  thyro-spark:
+    am: "1 cap"
+    noon: "0"
+    pm: "0"
+products:
+  - id: cal-mag-fusion
+    role: calcium_magnesium
+    dose_modifier: standard
+    notes: |
+      Adult 4·4·4 (per Luke 2026-09-12). Between slow-ox default 2·2·2
+      and true 4-Lows clinical practice (~7·7·7).
+  - id: slowox
+    role: slow_oxidation_support
+    dose_modifier: standard
+    notes: |
+      Adult 1·0·0 (1 cap AM only). Small morning driver — 3-Lows
+      patients can take a 1-cap slow-ox dose but not the full 1·1·1.
+  - id: thyro-spark
+    role: thyroid_spark
+    dose_modifier: standard
+    notes: |
+      Adult 1·0·0 (1 cap AM). Paired with slowox as the morning
+      thyroid driver.
+  - id: zinc-matrix-pro
+    role: zinc
+    dose_schedule:
+      type: linear
+      metric: na_k
+      anchors:
+        - { na_k_max: 2.5, dose: { am: "0",      noon: "0",     pm: "1 cap" } }
+        - { na_k_max: 4.0, dose: { am: "1 cap",  noon: "0",     pm: "1 cap" } }
+        - { na_k_max: 6.0, dose: { am: "1 cap",  noon: "1 cap", pm: "1 cap" } }
+        - { na_k_max: null, dose: { am: "1 cap", noon: "1 cap", pm: "2 caps" } }
+    notes: |
+      Zinc dose scales linearly with Na/K ratio (same ladder as the
+      high-Na/K adult buckets). At Na/K=4.0: 1·0·1; at Na/K=2.5: 0·0·1.
+  - id: cell-restore
+    role: methylation
+    dose_modifier: standard
+    notes: "Universal methylation support — present in all buckets."
+  - id: red-pilled-sockeye
+    role: fish_oil_essential_fatty_acids
+    dose_modifier: standard
+    notes: "Fish oil — universal across all buckets."
+  - id: valence-se
+    role: selenium_antioxidant
+    dose_modifier: standard
+    notes: "Selenium — universal (optional per practitioner)."
+  - id: kidney-flow
+    role: kidney_support
+    dose_modifier: standard
+    notes: "Kidney support — universal (optional per practitioner)."
+  - id: kelp-max
+    role: thyroid_iodine
+    dose_modifier: standard
+    notes: |
+      Iodine/trace-mineral nourishment, NOT thyroid stimulation.
+      Universal across all buckets.
+references:
+  - "drlwilson.com/articles/FOUR%20LOWS.htm (3-Lows as intermediate)"
+  - "drlwilson.com/Articles/HA%20INTRO.htm (oxidation evaluation)"
+  - "htma-app-bridge/syncers/protocols.py (canonical Valence product IDs)"
