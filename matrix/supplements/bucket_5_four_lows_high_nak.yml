@@ -67,3 +67,18 @@ references:
   - "drlwilson.com/Articles/HA%20INTRO.htm (four lows evaluated before oxidation rate)"
   - "htma-course-version-two/.../oxidation-types-fast-slow-mixed-four-lows.ts"
   - "htma_app_bridge/syncers/protocols.py (canonical Valence product IDs)"
+
+# Per-bucket adult dose overrides (added 2026-09-24). The standard
+# cal_mag_dose.py priority function returns 5-5-6 for four_lows by default;
+# Luke's locked clinical-practice dose for 4-Lows is 7-7-7 (heavy macromineral
+# rebuild), originally from his localStorage session override. The override
+# wins over the standard priority because it's the source of truth for the
+# bucket's clinical protocol — see writer.py:apply_bucket_overrides().
+#
+# Rule: when revising a 4-Lows dose override, propagate to bucket_6 too (the
+# low-Na/K twin); they share the same locked cal-mag clinical dose.
+adult_dose_overrides:
+  cal-mag-fusion:
+    am: "7 caps"
+    noon: "7 caps"
+    pm: "7 caps"

@@ -23,11 +23,19 @@ SCHEMAS = {
     "supplements": json.loads((SCHEMA_DIR / "bucket.schema.json").read_text()),
     "patterns": json.loads((SCHEMA_DIR / "pattern.schema.json").read_text()),
     "overrides": json.loads((SCHEMA_DIR / "override.schema.json").read_text()),
+    "age_scaling": json.loads((SCHEMA_DIR / "age_scaling.schema.json").read_text())
+    if (SCHEMA_DIR / "age_scaling.schema.json").exists()
+    else None,
 }
 
 
-def _classify_yaml(yaml_path: Path) -> str:
-    """Map a YAML file path to the schema key it should validate against."""
+def _classify_yaml(yaml_path: Path) -> str | None:
+    """Map a YAML file path to the schema key it should validate against.
+
+    Returns None for YAMLs that don't need schema validation (e.g.
+    freestanding data files in matrix/age_scaling/ that the loader doesn't
+    validate through jsonschema — see htma_decision_matrix.age_scaling).
+    """
     parts = yaml_path.parts
     if "supplements" in parts and yaml_path.stem.startswith("bucket"):
         return "supplements"
@@ -35,6 +43,10 @@ def _classify_yaml(yaml_path: Path) -> str:
         return "overrides"
     if "patterns" in parts:
         return "patterns"
+    if "age_scaling" in parts:
+        # age_scaling module loads via yaml.safe_load, not jsonschema —
+        # skip schema validation here.
+        return None
     raise ValueError(f"Cannot classify YAML: {yaml_path}")
 
 
@@ -44,8 +56,10 @@ def _all_yamls() -> list[Path]:
 
 @pytest.mark.parametrize("yaml_path", _all_yamls(), ids=lambda p: str(p.relative_to(REPO)))
 def test_yaml_validates_against_schema(yaml_path: Path) -> None:
-    data = yaml.safe_load(yaml_path.read_text())
     schema_key = _classify_yaml(yaml_path)
+    if schema_key is None:
+        pytest.skip(f"YAML at {yaml_path} doesn't have a JSON schema validator; loader uses yaml.safe_load only.")
+    data = yaml.safe_load(yaml_path.read_text())
     jsonschema.validate(data, SCHEMAS[schema_key])
 
 
@@ -58,5 +72,7 @@ def test_every_yaml_is_classified() -> None:
 def test_schemas_are_valid_draft_2020() -> None:
     """Each schema must itself parse as a JSON Schema Draft 2020-12 document."""
     for name, schema in SCHEMAS.items():
+        if schema is None:
+            continue  # no schema on disk for this category (e.g. age_scaling uses raw yaml)
         assert schema.get("$schema", "").endswith("2020-12/schema"), f"{name} not Draft 2020-12"
         jsonschema.Draft202012Validator.check_schema(schema)
